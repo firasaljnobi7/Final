@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF9F0A'/><text y='.9em' font-size='80' x='10'>🍂</text></svg>">
+<title>أوراق الشمس</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+:root{
+  --gb:rgba(28,28,30,.82);--gbd:rgba(255,255,255,.11);--gbl:blur(40px);
+  --s1:rgba(44,44,46,.9);--s2:rgba(58,58,60,.75);
+  --a1:#FF9F0A;--a2:#30D158;--a3:#0A84FF;--a4:#FF453A;--a5:#BF5AF2;--a6:#FF6B35;--a7:#64D2FF;
+  --tp:rgba(255,255,255,.95);--ts:rgba(255,255,255,.55);--tt:rgba(255,255,255,.28);
+  --sep:rgba(255,255,255,.07);--bg:#000;--cr:20px;--th:83px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;background:#000;color:var(--tp);font-family:'IBM Plex Sans Arabic','Helvetica Neue',Arial,sans-serif;overflow:hidden;}
+.orbs{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.12;}
+.o1{width:400px;height:400px;background:radial-gradient(circle,#FF9F0A,transparent);top:-100px;right:-80px;animation:f1 9s ease-in-out infinite;}
+.o2{width:360px;height:360px;background:radial-gradient(circle,#0A84FF,transparent);bottom:60px;left:-70px;animation:f2 11s ease-in-out infinite;}
+.o3{width:300px;height:300px;background:radial-gradient(circle,#30D158,transparent);top:40%;right:10%;animation:f3 13s ease-in-out infinite;}
+.o4{width:220px;height:220px;background:radial-gradient(circle,#BF5AF2,transparent);top:15%;left:5%;animation:f1 16s ease-in-out infinite reverse;}
+@keyframes f1{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,30px)}}
+@keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-20px)}}
+@keyframes f3{0%,100%{transform:translate(0,0)}50%{transform:translate(-12px,15px)}}
+#app{position:fixed;inset:0;display:flex;flex-direction:column;z-index:1;}
+.hdr{padding:env(safe-area-inset-top,44px) 16px 0;backdrop-filter:var(--gbl);-webkit-backdrop-filter:var(--gbl);background:rgba(0,0,0,.45);border-bottom:1px solid var(--gbd);z-index:100;flex-shrink:0;}
+.hdr-in{padding-bottom:10px;display:flex;align-items:center;gap:11px;}
+.logo-w{width:40px;height:40px;border-radius:12px;background:var(--s1);border:1.5px solid var(--gbd);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;position:relative;overflow:hidden;cursor:pointer;}
+.logo-w img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.logo-inp{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2;}
+.org-info{flex:1;min-width:0;}
+.org-nm{font-size:16px;font-weight:700;display:flex;align-items:center;gap:4px;cursor:pointer;}
+.org-nm-edit{display:none;background:transparent;border:none;border-bottom:1px solid var(--a1);color:var(--tp);font-family:inherit;font-size:16px;font-weight:700;width:100%;outline:none;}
+.org-sub{font-size:11px;color:var(--ts);margin-top:1px;}
+.hdr-btns{display:flex;gap:6px;}
+.icbtn{width:33px;height:33px;border-radius:50%;border:none;background:var(--s2);color:var(--tp);font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.content{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+.content::-webkit-scrollbar{display:none;}
+.page{display:none;padding:13px 13px calc(var(--th) + 24px);}
+.page.active{display:block;animation:pgIn .25s ease;}
+@keyframes pgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.tab-bar{position:fixed;bottom:0;left:0;right:0;height:var(--th);padding-bottom:env(safe-area-inset-bottom,20px);background:rgba(12,12,14,.92);backdrop-filter:var(--gbl);-webkit-backdrop-filter:var(--gbl);-webkit-backdrop-filter:var(--gbl);border-top:1px solid var(--gbd);display:flex;align-items:flex-start;justify-content:space-around;padding-top:9px;z-index:100;}
+.ti{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:3px 8px;min-width:48px;}
+.ti.active .tic,.ti.active .til{color:var(--a1);}
+.tic{font-size:20px;color:var(--ts);}
+.til{font-size:9px;color:var(--ts);font-weight:500;}
+.gc{background:var(--gb);backdrop-filter:var(--gbl);-webkit-backdrop-filter:var(--gbl);-webkit-backdrop-filter:var(--gbl);border:1px solid var(--gbd);border-radius:var(--cr);overflow:hidden;}
+.ch{padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between;}
+.ct{font-size:14px;font-weight:600;}
+.ca{font-size:12px;color:var(--a3);cursor:pointer;}
+.stitle{font-size:20px;font-weight:700;margin:16px 3px 10px;}
+.ssub{font-size:12px;color:var(--ts);margin:-6px 3px 10px;}
+.s2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;}
+.s3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px;}
+.sc{background:var(--gb);backdrop-filter:var(--gbl);-webkit-backdrop-filter:var(--gbl);-webkit-backdrop-filter:var(--gbl);border:1px solid var(--gbd);border-radius:18px;padding:14px;}
+.sl{font-size:11px;color:var(--ts);margin-bottom:3px;}
+.sv{font-size:19px;font-weight:700;}
+.ss{font-size:10px;color:var(--tt);margin-top:2px;}
+.g{color:var(--a2);}.r{color:var(--a4);}.o{color:var(--a1);}.b{color:var(--a3);}.p{color:var(--a5);}
+.bp{background:var(--a1);color:#000;border:none;border-radius:13px;padding:13px 20px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;width:100%;}
+.bs{background:var(--s2);color:var(--tp);border:1px solid var(--gbd);border-radius:12px;padding:10px 16px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;}
+.bd{background:rgba(255,69,58,.14);color:var(--a4);border:1px solid rgba(255,69,58,.18);border-radius:10px;padding:8px 12px;font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;}
+.bsm{padding:6px 12px !important;font-size:12px !important;border-radius:9px !important;}
+.b3{background:var(--a3);color:#fff;border:none;border-radius:12px;padding:11px 16px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;}
+.b5{background:var(--a5);color:#fff;border:none;border-radius:12px;padding:11px 16px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;}
+.fg{margin-bottom:12px;}
+.fl{font-size:12px;color:var(--ts);margin-bottom:5px;display:block;}
+.fi{width:100%;background:var(--s1);border:1px solid var(--gbd);border-radius:11px;padding:12px 13px;color:var(--tp);font-family:inherit;font-size:14px;outline:none;}
+.fi:focus{border-color:var(--a1);}
+.fsel{width:100%;background:var(--s1);border:1px solid var(--gbd);border-radius:11px;padding:12px 13px;color:var(--tp);font-family:inherit;font-size:14px;outline:none;appearance:none;}
+.fsel option{background:#1c1c1e;}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.73);z-index:200;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);}
+.mo.open{display:flex;animation:fdI .2s ease;}
+.ms{background:rgba(22,22,24,.97);border-radius:24px 24px 0 0;width:100%;max-width:520px;padding:10px 17px 36px;border-top:1px solid var(--gbd);max-height:88vh;overflow-y:auto;animation:slU .26s ease;}
+.ms::-webkit-scrollbar{display:none;}
+@keyframes slU{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes fdI{from{opacity:0}to{opacity:1}}
+.mh{width:32px;height:4px;background:rgba(255,255,255,.17);border-radius:2px;margin:0 auto 16px;}
+.mtitle{font-size:18px;font-weight:700;margin-bottom:16px;text-align:center;}
+.pw{background:rgba(255,255,255,.07);border-radius:7px;height:8px;overflow:hidden;margin-top:8px;}
+.pf{height:100%;border-radius:7px;transition:width .7s ease;}
+.mi{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--sep);}
+.mi:last-child{border-bottom:none;}
+.mico{width:35px;height:35px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.mc{flex:1;min-width:0;}
+.mtl{font-size:13px;font-weight:600;}
+.mmt{font-size:11px;color:var(--ts);margin-top:1px;}
+.mam{font-size:13px;font-weight:700;}
+.fb2{display:flex;gap:6px;padding:9px 13px;overflow-x:auto;}
+.fb2::-webkit-scrollbar{display:none;}
+.fc{padding:5px 12px;border-radius:16px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap;background:var(--s2);color:var(--ts);border:1px solid var(--gbd);flex-shrink:0;}
+.fc.active{background:rgba(255,159,10,.18);color:var(--a1);border-color:rgba(255,159,10,.28);}
+.brc{background:var(--gb);backdrop-filter:var(--gbl);-webkit-backdrop-filter:var(--gbl);-webkit-backdrop-filter:var(--gbl);border:1px solid var(--gbd);border-radius:var(--cr);margin-bottom:10px;overflow:hidden;}
+.ir{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--sep);}
+.ir:last-child{border-bottom:none;}
+.idot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.sr{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;border-bottom:1px solid var(--sep);font-size:13px;}
+.sr:last-child{border-bottom:none;}
+.sr.tot{font-weight:700;font-size:14px;background:rgba(255,255,255,.04);}
+.sr.hd{font-size:11px;color:var(--ts);font-weight:700;background:rgba(255,255,255,.03);padding:8px 16px;}
+.stabs{display:flex;background:var(--s1);border-radius:12px;padding:3px;margin-bottom:12px;}
+.stab{flex:1;padding:8px 4px;text-align:center;font-size:12px;font-weight:600;cursor:pointer;border-radius:9px;color:var(--ts);}
+.stab.active{background:var(--a1);color:#000;}
+.toast{position:fixed;bottom:calc(var(--th) + 16px);left:50%;transform:translateX(-50%);background:rgba(48,209,88,.93);color:#fff;padding:10px 20px;border-radius:16px;font-size:13px;font-weight:600;z-index:300;display:none;white-space:nowrap;}
+.toast.show{display:block;animation:tIn .25s ease;}
+@keyframes tIn{from{opacity:0;transform:translateX(-50%) translateY(7px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.fab{position:fixed;bottom:calc(var(--th) + 13px);left:16px;width:48px;height:48px;border-radius:50%;background:var(--a1);color:#000;font-size:23px;border:none;cursor:pointer;z-index:90;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(255,159,10,.35);}
+.mb10{margin-bottom:10px;}.mb12{margin-bottom:12px;}.mt8{margin-top:8px;}.mt10{margin-top:10px;}
+.fbb{display:flex;align-items:center;justify-content:space-between;}
+.share-btn{display:flex;align-items:center;gap:7px;justify-content:center;background:var(--a3);color:#fff;border:none;border-radius:12px;padding:12px 16px;font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;width:100%;margin-top:10px;}
+.empty{text-align:center;padding:44px 16px;color:var(--ts);}
+.zk-banner{background:linear-gradient(135deg,rgba(191,90,242,.2),rgba(10,132,255,.15));border:1px solid rgba(191,90,242,.25);border-radius:var(--cr);padding:18px;margin-bottom:12px;text-align:center;}
+.sug{background:linear-gradient(135deg,rgba(191,90,242,.12),rgba(10,132,255,.08));border:1px solid rgba(191,90,242,.18);border-radius:13px;padding:13px;margin-bottom:9px;}
+.emp-row{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--sep);}
+.emp-row:last-child{border-bottom:none;}
+.emp-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
+.bar-lbl{font-size:11px;color:var(--ts);width:80px;flex-shrink:0;text-align:right;}
+.bar-track{flex:1;background:rgba(255,255,255,.07);border-radius:6px;height:22px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-right:8px;justify-content:flex-end;min-width:30px;}
+.bar-val{font-size:10px;font-weight:700;color:#000;white-space:nowrap;}
+.cmp-sel{flex:1;min-width:100px;background:var(--s1);border:1px solid var(--gbd);border-radius:10px;padding:9px 11px;color:var(--tp);font-family:inherit;font-size:13px;outline:none;appearance:none;}
+.cmp-sel option{background:#1c1c1e;}
+.cmp-bar-grp{margin-bottom:12px;}
+.cmp-bar-lbl{font-size:12px;color:var(--ts);margin-bottom:5px;}
+.cmp-bar-track{background:rgba(255,255,255,.07);border-radius:6px;height:28px;overflow:hidden;}
+.cmp-bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-right:10px;justify-content:flex-end;min-width:20px;}
+.rq{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--sep);}
+.rq:last-child{border-bottom:none;}
+.rdot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.rdot.paid{background:var(--a2);}
+.rdot.pend{background:rgba(255,255,255,.14);border:2px solid var(--tt);}
+.goods-row{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--sep);}
+.goods-row:last-child{border-bottom:none;}
+</style>
+</head>
+<body>
+<div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div></div>
+<div id="app">
+<div class="hdr">
+  <div class="hdr-in">
+    <div class="logo-w"><span id="logoEm">🏢</span><img id="logoImg" src="" style="display:none"><input type="file" accept="image/*" class="logo-inp" id="logoFile"></div>
+    <div class="org-info">
+      <div class="org-nm" onclick="editName()"><span id="orgNm">مؤسستي</span><span style="font-size:10px;color:var(--tt)"> ✏️</span></div>
+      <input class="org-nm-edit" id="orgNmInp" onblur="saveName()" onkeydown="if(event.key==='Enter')saveName()">
+      <div class="org-sub">النظام المحاسبي • 2026</div>
+    </div>
+    <div class="hdr-btns">
+      <button class="icbtn" onclick="showPage('report')">📋</button>
+      <button class="icbtn" onclick="openMod('mod-add')">＋</button>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- DASHBOARD -->
+<div class="page active" id="page-dashboard">
+  <!-- صف الإيرادات والمصروفات -->
+  <div class="s2">
+    <div class="sc"><div class="sl">إجمالي الإيرادات</div><div class="sv g" id="d-rev">0</div><div class="ss">ريال</div></div>
+    <div class="sc"><div class="sl">إجمالي المصروفات</div><div class="sv r" id="d-total-costs">0</div><div class="ss">ريال</div></div>
+  </div>
+  <!-- تفصيل المصروفات -->
+  <div class="s3">
+    <div class="sc"><div class="sl">🏠 الإيجار</div><div class="sv p" id="d-rent">0</div><div class="ss">ريال</div></div>
+    <div class="sc"><div class="sl">📦 البضاعة</div><div class="sv o" id="d-goods">0</div><div class="ss">ريال</div></div>
+    <div class="sc"><div class="sl">👥 الرواتب</div><div class="sv b" id="d-sal">0</div><div class="ss">ريال</div></div>
+  </div>
+  <div class="sc mb10" style="border-radius:18px;padding:18px;background:linear-gradient(135deg,rgba(28,28,30,.9),rgba(44,44,46,.9));border:1.5px solid rgba(255,255,255,.13)">
+    <div class="sl" style="font-size:12px">صافي الربح / الخسارة</div>
+    <div id="d-net" style="font-size:32px;font-weight:700;margin:4px 0">0</div>
+    <div class="ss" style="font-size:11px">ريال</div>
+  </div>
+  <div id="d-target-card"></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">📊 مقارنة البنود</div></div><div style="padding:14px 16px 10px" id="d-chart"></div></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">🏪 أهداف الأفرع اليومية</div><div class="ca" onclick="showPage('branches')">تفاصيل</div></div><div id="d-branches"></div></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">🕐 آخر الحركات</div><div class="ca" onclick="showPage('movements')">الكل</div></div><div id="d-recent"></div></div>
+</div>
+
+<!-- DIRECTOR -->
+<div class="page" id="page-director">
+  <div style="background:linear-gradient(135deg,rgba(255,159,10,.18),rgba(10,132,255,.18));border:1px solid var(--gbd);border-radius:var(--cr);padding:17px;margin-bottom:12px;text-align:center">
+    <div style="width:62px;height:62px;border-radius:16px;margin:0 auto 10px;overflow:hidden;background:var(--s1);display:flex;align-items:center;justify-content:center;font-size:32px;position:relative">
+      <span id="dir-em">🏢</span><img id="dir-img" src="" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:15px">
+    </div>
+    <div style="font-size:19px;font-weight:700" id="dir-nm">مؤسستي</div>
+    <div style="font-size:11px;color:var(--ts);margin-top:3px">تقرير المدير • <span id="dir-dt"></span></div>
+  </div>
+  <div class="s2 mb10">
+    <div class="sc"><div class="sl">الإيرادات</div><div class="sv g" id="dir-rev">0</div><div class="ss">ريال</div></div>
+    <div class="sc"><div class="sl">المصروفات</div><div class="sv r" id="dir-exp">0</div><div class="ss">ريال</div></div>
+  </div>
+  <div class="s2 mb10">
+    <div class="sc"><div class="sl">صافي الربح</div><div class="sv o" id="dir-net">0</div><div class="ss">ريال</div></div>
+    <div class="sc"><div class="sl">هامش الربح</div><div class="sv p" id="dir-mrg">0%</div></div>
+  </div>
+  <div class="gc mb10">
+    <div class="ch"><div class="ct">📊 مقارنة مخصصة</div></div>
+    <div style="padding:12px 16px">
+      <div style="font-size:12px;color:var(--ts);margin-bottom:8px">اختر ما تريد مقارنته:</div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+        <select class="cmp-sel" id="cmpA" onchange="renderCmp()"><option value="">العنصر الأول</option></select>
+        <select class="cmp-sel" id="cmpB" onchange="renderCmp()"><option value="">العنصر الثاني</option></select>
+      </div>
+      <div style="display:none;gap:8px;margin-bottom:8px" id="cmpC-row">
+        <select class="cmp-sel" id="cmpC" onchange="renderCmp()"><option value="">العنصر الثالث</option></select>
+      </div>
+      <div style="display:flex;gap:7px">
+        <button onclick="showCmpC()" class="bs bsm">+ ثالث</button>
+        <button onclick="resetCmp()" class="bd bsm">مسح</button>
+      </div>
+    </div>
+    <div style="padding:10px 16px 14px" id="cmp-result"><div style="font-size:12px;color:var(--ts)">اختر عناصر المقارنة</div></div>
+  </div>
+  <div class="gc mb10"><div class="ch"><div class="ct">🎯 أهداف الأفرع</div></div><div id="dir-targets"></div></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">📦 البضاعة على الأفرع</div></div><div id="dir-goods"></div></div>
+  <button class="share-btn" onclick="shareDir()">📤 مشاركة تقرير المدير</button>
+</div>
+
+<!-- MOVEMENTS -->
+<div class="page" id="page-movements">
+  <div class="stitle">القيود والحركات</div>
+  <div class="gc mb10">
+    <div class="fb2" id="mov-filters"></div>
+    <div id="mov-list"></div>
+  </div>
+</div>
+
+<!-- BRANCHES -->
+<div class="page" id="page-branches">
+  <div class="stitle">الأفرع</div>
+  <div id="branches-wrap"></div>
+</div>
+
+<!-- EMPLOYEES -->
+<div class="page" id="page-employees">
+  <div class="stitle">الرواتب والموظفون</div>
+  <div class="s2 mb10">
+    <div class="sc"><div class="sl">إجمالي الرواتب الشهري</div><div class="sv p" id="emp-total-sal">0</div><div class="ss">ريال</div></div>
+    <div class="sc"><div class="sl">عدد الموظفين</div><div class="sv b" id="emp-count">0</div><div class="ss">موظف</div></div>
+  </div>
+  <div class="gc mb10"><div class="ch"><div class="ct">👔 المدراء</div><div class="ca" onclick="openAddEmpMod(true)">+ إضافة</div></div><div id="mgr-list"></div></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">👥 الموظفون لكل فرع</div></div><div id="emp-by-branch"></div></div>
+  <button class="bp mb10" onclick="openAddEmpMod(false)">＋ إضافة موظف</button>
+</div>
+
+<!-- ITEMS -->
+<div class="page" id="page-items">
+  <div class="stitle">البنود</div>
+  <div class="ssub">إضافة وحذف بنود الحسابات</div>
+  <div class="gc mb10"><div id="items-wrap"></div></div>
+  <button class="bp" onclick="openMod('mod-item')">＋ إضافة بند جديد</button>
+</div>
+
+<!-- ZAKAT -->
+<div class="page" id="page-zakat">
+  <div class="stitle">الزكاة والضريبة</div>
+  <div class="zk-banner">
+    <div style="font-size:28px;margin-bottom:7px">🕌</div>
+    <div style="font-size:15px;font-weight:700">إقرار الزكاة والضريبة</div>
+    <div style="font-size:11px;color:var(--ts);margin-top:3px">هيئة الزكاة والضريبة والجمارك — المملكة العربية السعودية</div>
+  </div>
+  <div class="gc mb10"><div class="ch"><div class="ct">📅 المواعيد المهمة</div></div><div id="zk-dl"></div></div>
+  <div class="gc mb10">
+    <div class="ch"><div class="ct">🧮 حساب الزكاة</div><div class="ca" onclick="calcZakat()">احسب</div></div>
+    <div id="zk-res" style="padding:13px 16px"><div style="font-size:12px;color:var(--ts)">اضغط احسب</div></div>
+  </div>
+  <div class="gc mb10">
+    <div class="ch"><div class="ct">💰 ضريبة القيمة المضافة 15%</div><div class="ca" onclick="calcVAT()">احسب</div></div>
+    <div id="vat-res" style="padding:13px 16px"><div style="font-size:12px;color:var(--ts)">اضغط احسب</div></div>
+  </div>
+  <div class="gc mb10">
+    <div class="ch"><div class="ct">📄 توليد الإقرار الضريبي</div></div>
+    <div id="zk-decl" style="padding:13px 16px"><div style="font-size:12px;color:var(--ts)">اضغط توليد لإنشاء الإقرار</div></div>
+    <div style="padding:0 16px 14px;display:flex;gap:8px">
+      <button class="b5" style="flex:1;font-size:12px" onclick="genDecl()">📄 توليد الإقرار</button>
+      <button class="b3" style="flex:1;font-size:12px" onclick="shareDecl()">📤 مشاركة</button>
+    </div>
+  </div>
+</div>
+
+<!-- FINANCE -->
+<div class="page" id="page-finance">
+  <div class="stitle">القوائم المالية</div>
+  <div class="stabs">
+    <div class="stab active" onclick="setStmt('income',this)">قائمة الدخل</div>
+    <div class="stab" onclick="setStmt('balance',this)">الميزانية</div>
+    <div class="stab" onclick="setStmt('cashflow',this)">التدفقات</div>
+  </div>
+  <div class="gc mb10" id="stmt-wrap"></div>
+  <button class="share-btn" onclick="shareStmt()">📤 تصدير القائمة</button>
+</div>
+
+<!-- REPORT -->
+<div class="page" id="page-report">
+  <div class="stitle">📋 التقرير الشامل</div>
+  <div class="gc mb10"><div class="ch"><div class="ct">📊 الملخص المالي</div></div><div id="rpt-sum" style="padding:0 16px 14px"></div></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">📦 البضاعة على الأفرع</div></div><div id="rpt-goods"></div></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">👥 ملخص الرواتب</div></div><div id="rpt-sal"></div></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">🏪 أداء الأفرع</div></div><div id="rpt-br"></div></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">🏠 إيجارات الأفرع</div></div><div id="rpt-rent"></div></div>
+  <div class="gc mb10"><div class="ch"><div class="ct">💡 مقترحات التطوير</div></div><div id="rpt-sug" style="padding:10px 16px 14px"></div></div>
+</div>
+
+<!-- MORE -->
+<div class="page" id="page-more">
+  <div class="stitle">المزيد</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+    <button class="bs" style="padding:18px;font-size:13px;border-radius:14px;text-align:center" onclick="showPage('branches')">🏪 الأفرع</button>
+    <button class="bs" style="padding:18px;font-size:13px;border-radius:14px;text-align:center" onclick="showPage('items')">📋 البنود</button>
+    <button class="bs" style="padding:18px;font-size:13px;border-radius:14px;text-align:center" onclick="showPage('finance')">📑 القوائم</button>
+    <button class="bs" style="padding:18px;font-size:13px;border-radius:14px;text-align:center" onclick="showPage('report')">📋 التقرير</button>
+  </div>
+
+  <!-- النسخ الاحتياطي -->
+  <div class="stitle" style="font-size:16px;margin-top:4px">💾 النسخ الاحتياطي</div>
+  <div class="gc mb10">
+    <div class="ch"><div class="ct">📤 تصدير البيانات</div></div>
+    <div style="padding:14px 16px">
+      <div style="font-size:12px;color:var(--ts);margin-bottom:12px">احفظ نسخة من جميع بياناتك — الحركات، الأفرع، الموظفين، كل شيء</div>
+      <button class="bp mb10" onclick="exportData()">📥 تحميل نسخة احتياطية (.json)</button>
+      <button class="b3" style="width:100%" onclick="exportCSV()">📊 تصدير الحركات Excel (.csv)</button>
+    </div>
+  </div>
+
+  <div class="gc mb10">
+    <div class="ch"><div class="ct">📥 استيراد البيانات</div></div>
+    <div style="padding:14px 16px">
+      <div style="font-size:12px;color:var(--ts);margin-bottom:12px">استرجع بياناتك من نسخة احتياطية سابقة</div>
+      <div style="background:var(--s1);border:1.5px dashed rgba(255,255,255,.2);border-radius:11px;padding:14px;text-align:center;cursor:pointer" onclick="document.getElementById('import-file').click()">
+        <div style="font-size:24px;margin-bottom:4px">📂</div>
+        <div style="font-size:12px;color:var(--ts)">اضغط لاختيار ملف النسخة الاحتياطية</div>
+      </div>
+      <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(this)">
+    </div>
+  </div>
+
+  <div class="gc mb10">
+    <div class="ch"><div class="ct">ℹ️ معلومات البيانات</div></div>
+    <div style="padding:14px 16px" id="data-info"></div>
+  </div>
+
+  <button class="bd" style="width:100%;padding:14px;font-size:13px;border-radius:14px;text-align:center" onclick="confirmReset()">🗑️ مسح جميع البيانات</button>
+</div>
+
+</div><!-- content -->
+
+<div class="tab-bar">
+  <div class="ti active" onclick="showPage('dashboard')"><div class="tic">📊</div><div class="til">الرئيسية</div></div>
+  <div class="ti" onclick="showPage('director')"><div class="tic">🎯</div><div class="til">المدير</div></div>
+  <div class="ti" onclick="showPage('movements')"><div class="tic">↕️</div><div class="til">الحركات</div></div>
+  <div class="ti" onclick="showPage('employees')"><div class="tic">👥</div><div class="til">الموظفون</div></div>
+  <div class="ti" onclick="showPage('zakat')"><div class="tic">🕌</div><div class="til">الزكاة</div></div>
+  <div class="ti" onclick="showPage('more')"><div class="tic">⋯</div><div class="til">المزيد</div></div>
+</div>
+</div>
+
+<button class="fab" id="fab" onclick="openMod('mod-add')">＋</button>
+<div class="toast" id="toast"></div>
+
+<!-- MODALS -->
+<div class="mo" id="mod-add">
+  <div class="ms">
+    <div class="mh"></div><div class="mtitle">➕ إضافة قيد</div>
+    <div class="fg"><label class="fl">البيان</label><input class="fi" id="m-desc" placeholder="وصف الحركة"></div>
+    <div class="fr">
+      <div class="fg"><label class="fl">المبلغ (ريال)</label><input class="fi" id="m-amt" type="number" placeholder="0"></div>
+      <div class="fg"><label class="fl">التاريخ</label><input class="fi" id="m-date" type="date"></div>
+    </div>
+    <div class="fg"><label class="fl">البند</label><select class="fsel" id="m-item"></select></div>
+    <div class="fg"><label class="fl">الفرع</label><select class="fsel" id="m-branch"></select></div>
+    <div class="fg" id="goods-split-section" style="display:none">
+      <div style="background:rgba(255,159,10,.12);border:1px solid rgba(255,159,10,.2);border-radius:11px;padding:12px">
+        <div style="font-size:12px;color:var(--a1);font-weight:600;margin-bottom:4px">📦 توزيع البضاعة تلقائياً</div>
+        <div style="font-size:11px;color:var(--ts)">سيتم توزيع قيمة البضاعة بالتساوي على جميع الأفرع تلقائياً</div>
+      </div>
+    </div>
+    <!-- مرفق اختياري -->
+    <div class="fg">
+      <label class="fl">📎 إرفاق إثبات (اختياري)</label>
+      <div style="background:var(--s1);border:1.5px dashed rgba(255,255,255,.2);border-radius:11px;padding:14px;text-align:center;cursor:pointer;position:relative" onclick="document.getElementById('m-attach').click()">
+        <div id="m-attach-preview" style="display:none;margin-bottom:8px">
+          <img id="m-attach-img" src="" style="max-height:120px;border-radius:8px;max-width:100%">
+        </div>
+        <div id="m-attach-placeholder">
+          <div style="font-size:24px;margin-bottom:4px">📷</div>
+          <div style="font-size:12px;color:var(--ts)">اضغط لإرفاق صورة أو ملف</div>
+          <div style="font-size:11px;color:var(--tt);margin-top:2px">فاتورة • وصل • صورة</div>
+        </div>
+        <input type="file" id="m-attach" accept="image/*,application/pdf" style="display:none" onchange="previewAttach(this)">
+      </div>
+      <div id="m-attach-name" style="font-size:11px;color:var(--a2);margin-top:5px;display:none"></div>
+      <button id="m-attach-clear" onclick="clearAttach()" style="display:none;background:none;border:none;color:var(--a4);font-size:12px;cursor:pointer;margin-top:4px">✕ إزالة المرفق</button>
+    </div>
+    <div style="height:10px"></div>
+    <button class="bp" onclick="saveMov()">حفظ القيد</button>
+    <div style="height:7px"></div>
+    <button class="bs" style="width:100%" onclick="closeMod('mod-add')">إلغاء</button>
+  </div>
+</div>
+
+<div class="mo" id="mod-branch">
+  <div class="ms">
+    <div class="mh"></div><div class="mtitle">🏪 إضافة فرع</div>
+    <div class="fg"><label class="fl">اسم الفرع</label><input class="fi" id="b-name" placeholder="الفرع الرئيسي"></div>
+    <div class="fg"><label class="fl">الموقع</label><input class="fi" id="b-loc" placeholder="المدينة / الحي"></div>
+    <div class="fg"><label class="fl">🎯 الهدف اليومي (ريال)</label><input class="fi" id="b-tgt" type="number" placeholder="3000"></div>
+    <div style="font-size:12px;color:var(--ts);margin-bottom:8px;font-weight:600">🏠 إعداد الإيجار</div>
+    <div class="fr">
+      <div class="fg"><label class="fl">الإيجار السنوي (ريال)</label><input class="fi" id="b-rent-ann" type="number" placeholder="0"></div>
+      <div class="fg"><label class="fl">دورية السداد</label>
+        <select class="fsel" id="b-rent-freq">
+          <option value="quarterly">ربع سنوي</option>
+          <option value="monthly">شهري</option>
+          <option value="biannual">نصف سنوي</option>
+          <option value="annual">سنوي</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">عدد الدفعات المسددة</label><input class="fi" id="b-rent-paid" type="number" placeholder="0" min="0"></div>
+    <div style="height:10px"></div>
+    <button class="bp" onclick="saveBranch()">إضافة الفرع</button>
+    <div style="height:7px"></div>
+    <button class="bs" style="width:100%" onclick="closeMod('mod-branch')">إلغاء</button>
+  </div>
+</div>
+
+<div class="mo" id="mod-edit-branch">
+  <div class="ms">
+    <div class="mh"></div><div class="mtitle">✏️ تعديل الفرع</div>
+    <input type="hidden" id="eb-id">
+    <div class="fg"><label class="fl">اسم الفرع</label><input class="fi" id="eb-name"></div>
+    <div class="fg"><label class="fl">الموقع</label><input class="fi" id="eb-loc"></div>
+    <div class="fg"><label class="fl">🎯 الهدف اليومي (ريال)</label><input class="fi" id="eb-tgt" type="number"></div>
+    <div style="font-size:12px;color:var(--ts);margin-bottom:8px;font-weight:600">🏠 إعداد الإيجار</div>
+    <div class="fr">
+      <div class="fg"><label class="fl">الإيجار السنوي (ريال)</label><input class="fi" id="eb-rent-ann" type="number"></div>
+      <div class="fg"><label class="fl">دورية السداد</label>
+        <select class="fsel" id="eb-rent-freq">
+          <option value="quarterly">ربع سنوي</option>
+          <option value="monthly">شهري</option>
+          <option value="biannual">نصف سنوي</option>
+          <option value="annual">سنوي</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">عدد الدفعات المسددة</label><input class="fi" id="eb-rent-paid" type="number" min="0"></div>
+    <div style="height:10px"></div>
+    <button class="bp" onclick="saveEditBranch()">حفظ التعديلات</button>
+    <div style="height:7px"></div>
+    <button class="bs" style="width:100%" onclick="closeMod('mod-edit-branch')">إلغاء</button>
+  </div>
+</div>
+
+<div class="mo" id="mod-item">
+  <div class="ms">
+    <div class="mh"></div><div class="mtitle">📋 إضافة بند</div>
+    <div class="fg"><label class="fl">اسم البند</label><input class="fi" id="it-name" placeholder="مثال: مصروفات تسويق"></div>
+    <div class="fg"><label class="fl">نوع البند</label>
+      <select class="fsel" id="it-type">
+        <option value="revenue">إيراد</option>
+        <option value="expense">مصروف</option>
+        <option value="goods">شراء بضاعة</option>
+        <option value="salary">رواتب</option>
+        <option value="capital">رأس مال</option>
+        <option value="asset">أصول</option>
+        <option value="liability">التزامات</option>
+      </select>
+    </div>
+    <div style="height:10px"></div>
+    <button class="bp" onclick="saveItem()">إضافة البند</button>
+    <div style="height:7px"></div>
+    <button class="bs" style="width:100%" onclick="closeMod('mod-item')">إلغاء</button>
+  </div>
+</div>
+
+<div class="mo" id="mod-gt">
+  <div class="ms">
+    <div class="mh"></div><div class="mtitle">🎯 الهدف اليومي الإجمالي</div>
+    <div style="background:rgba(48,209,88,.1);border:1px solid rgba(48,209,88,.2);border-radius:12px;padding:12px;margin-bottom:14px">
+      <div style="font-size:12px;color:var(--a2);font-weight:600;margin-bottom:4px">💡 كيف يُحسب الهدف اليومي؟</div>
+      <div style="font-size:11px;color:var(--ts)">الهدف اليومي = (إيجار شهري + رواتب شهرية + تكلفة بضاعة يومية + هامش ربح) ÷ أيام الشهر</div>
+    </div>
+    <div class="fg"><label class="fl">الهدف اليومي الكلي (ريال)</label><input class="fi" id="gt-inp" type="number" placeholder="5000"></div>
+    <div id="gt-auto-hint" style="font-size:11px;color:var(--ts);margin-bottom:10px"></div>
+    <div style="height:10px"></div>
+    <button class="bp" onclick="saveGT()">حفظ</button>
+    <div style="height:7px"></div>
+    <button class="bs" style="width:100%" onclick="closeMod('mod-gt')">إلغاء</button>
+  </div>
+</div>
+
+<div class="mo" id="mod-emp">
+  <div class="ms">
+    <div class="mh"></div><div class="mtitle" id="emp-mod-title">👤 إضافة موظف</div>
+    <input type="hidden" id="emp-edit-id">
+    <div class="fg"><label class="fl">اسم الموظف</label><input class="fi" id="emp-name" placeholder="اسم الموظف"></div>
+    <div class="fg"><label class="fl">الراتب الشهري (ريال)</label><input class="fi" id="emp-sal" type="number" placeholder="0"></div>
+    <div class="fg" id="emp-branch-grp"><label class="fl">الفرع</label><select class="fsel" id="emp-branch"></select></div>
+    <div class="fg" id="emp-mgr-grp" style="display:none">
+      <div style="background:rgba(191,90,242,.12);border:1px solid rgba(191,90,242,.2);border-radius:11px;padding:12px">
+        <div style="font-size:12px;color:var(--a5);font-weight:600;margin-bottom:4px">👔 مدير عام</div>
+        <div style="font-size:11px;color:var(--ts)">الراتب سيُقسم تلقائياً على عدد الأفرع</div>
+      </div>
+    </div>
+    <div style="height:10px"></div>
+    <button class="bp" onclick="saveEmp()">حفظ</button>
+    <div style="height:7px"></div>
+    <button class="bs" style="width:100%" onclick="closeMod('mod-emp')">إلغاء</button>
+  </div>
+</div>
+
+<script>
+var COLORS = ['#FF9F0A','#0A84FF','#30D158','#BF5AF2','#FF453A','#FF6B35','#64D2FF','#FFD60A'];
+var EMOJIS = ['🏢','🏪','🏬','🏭','🏦','🏨','🏩','🏯'];
+var FREQ_LBL = {quarterly:'ربع سنوي',monthly:'شهري',biannual:'نصف سنوي',annual:'سنوي'};
+var FREQ_CNT = {quarterly:4,monthly:12,biannual:2,annual:1};
+var FREQ_NMS = {
+  quarterly:['الربع الأول','الربع الثاني','الربع الثالث','الربع الرابع'],
+  monthly:['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'],
+  biannual:['النصف الأول','النصف الثاني'],
+  annual:['السنة الكاملة']
+};
+
+var S = {
+  orgName:'مؤسستي', orgLogo:null, dailyTarget:5000,
+  branches:[
+    {id:1,name:'الفرع الرئيسي',location:'الرياض',color:'#FF9F0A',emoji:'🏢',dailyTarget:2000,rent:{annual:230000,freq:'quarterly',paid:2}},
+    {id:2,name:'الفرع الثاني',location:'جدة',color:'#0A84FF',emoji:'🏪',dailyTarget:1500,rent:{annual:120000,freq:'quarterly',paid:1}},
+    {id:3,name:'الفرع الثالث',location:'الدمام',color:'#30D158',emoji:'🏬',dailyTarget:1500,rent:{annual:96000,freq:'quarterly',paid:0}}
+  ],
+  items:[
+    {id:1,name:'إيرادات',type:'revenue',color:'#30D158'},
+    {id:2,name:'مصروفات',type:'expense',color:'#FF453A'},
+    {id:3,name:'شراء بضاعة',type:'goods',color:'#FF9F0A'},
+    {id:4,name:'إيجار',type:'expense',color:'#BF5AF2'},
+    {id:5,name:'رواتب',type:'salary',color:'#FF6B35'},
+    {id:6,name:'رأس مال',type:'capital',color:'#0A84FF'}
+  ],
+  employees:[],
+  movements:[],
+  nextMId:1, nextBId:4, nextItId:7, nextEId:1,
+  movFilter:'all', currentStmt:'income'
+};
+
+function load(){
+  // Preloaded data from Excel
+  var PRELOADED = {"orgName": "أوراق الشمس", "orgLogo": null, "dailyTarget": 1344, "branches": [{"id": 1, "name": "فرع الحياة", "location": "الحياة 21", "color": "#FF9F0A", "emoji": "🏢", "dailyTarget": 448, "rent": {"annual": 230000, "freq": "quarterly", "paid": 2}}, {"id": 2, "name": "فرع مارينا", "location": "مارينا 20", "color": "#0A84FF", "emoji": "🏪", "dailyTarget": 448, "rent": {"annual": 0, "freq": "quarterly", "paid": 0}}, {"id": 3, "name": "فرع البديعة", "location": "البديعة 22", "color": "#30D158", "emoji": "🏬", "dailyTarget": 448, "rent": {"annual": 0, "freq": "quarterly", "paid": 0}}], "items": [{"id": 1, "name": "إيرادات", "type": "revenue", "color": "#30D158"}, {"id": 2, "name": "مصروفات", "type": "expense", "color": "#FF453A"}, {"id": 3, "name": "شراء بضاعة", "type": "goods", "color": "#FF9F0A"}, {"id": 4, "name": "إيجار", "type": "expense", "color": "#BF5AF2"}, {"id": 5, "name": "رواتب", "type": "salary", "color": "#FF6B35"}, {"id": 6, "name": "رأس مال", "type": "capital", "color": "#0A84FF"}], "employees": [{"id": 1, "name": "معمر", "salary": 3500, "isManager": false, "branchId": 1}, {"id": 2, "name": "شهد الشهراني", "salary": 3500, "isManager": false, "branchId": 1}, {"id": 3, "name": "نوف", "salary": 4000, "isManager": false, "branchId": 1}, {"id": 4, "name": "عمرو", "salary": 3500, "isManager": false, "branchId": 2}, {"id": 5, "name": "سلمى", "salary": 3500, "isManager": false, "branchId": 2}, {"id": 6, "name": "مهران", "salary": 3500, "isManager": false, "branchId": 3}, {"id": 7, "name": "سارة", "salary": 3000, "isManager": false, "branchId": 3}, {"id": 8, "name": "جابر", "salary": 1000, "isManager": true, "branchId": null}, {"id": 9, "name": "فراس", "salary": 1000, "isManager": true, "branchId": null}], "movements": [{"id": 1, "desc": "تاسيس الموسسة", "amount": 100000.0, "date": "2025-12-17", "itemId": 6, "branchId": 1, "itemName": "رأس مال", "branchName": "فرع الحياة", "itemType": "capital", "itemColor": "#0A84FF"}, {"id": 2, "desc": "مصاريف حكومية", "amount": 1165.0, "date": "2025-12-17", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 3, "desc": "مصروف تنازل عن كشك الحياة", "amount": 17250.0, "date": "2025-12-29", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 4, "desc": "ضمان تاجير كشك", "amount": 10000.0, "date": "2025-12-30", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 5, "desc": "مصروف مكتبة ( طباعة ختم )", "amount": 0.58, "date": "2026-01-01", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 6, "desc": "سداد ايجار الحياة", "amount": 57500.0, "date": "2026-01-05", "itemId": 4, "branchId": 1, "itemName": "إيجار", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#BF5AF2"}, {"id": 7, "desc": "مصروف مكتبة (طباعة شعار الموسسة )", "amount": 15.0, "date": "2026-01-06", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 8, "desc": "زيادة راس المال", "amount": 100000.0, "date": "2026-01-01", "itemId": 6, "branchId": 1, "itemName": "رأس مال", "branchName": "فرع الحياة", "itemType": "capital", "itemColor": "#0A84FF"}, {"id": 9, "desc": "مصروف تنازل عن كشك مارينا و البديعة", "amount": 52125.0, "date": "2026-01-18", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 10, "desc": "رواتب موظفين ( جابر , فراس )", "amount": 6000.0, "date": "2026-01-28", "itemId": 5, "branchId": 1, "itemName": "رواتب", "branchName": "فرع الحياة", "itemType": "salary", "itemColor": "#FF6B35"}, {"id": 11, "desc": "شراء بضاعة", "amount": 10200.0, "date": "2026-02-01", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 12, "desc": "شراء بضاعة", "amount": 350.0, "date": "2026-02-01", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 13, "desc": "شراء بضاعة كاش", "amount": 500.0, "date": "2026-02-01", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 14, "desc": "شراء بضاعة", "amount": 1530.0, "date": "2026-02-01", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 15, "desc": "شراء بضاعة", "amount": 300.0, "date": "2026-02-01", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 16, "desc": "رأس مال", "amount": 10000.0, "date": "2026-02-01", "itemId": 6, "branchId": 1, "itemName": "رأس مال", "branchName": "فرع الحياة", "itemType": "capital", "itemColor": "#0A84FF"}, {"id": 17, "desc": "شراء بضاعة كاش", "amount": 50000.0, "date": "2026-02-02", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 18, "desc": "شراء بضاعة", "amount": 900.0, "date": "2026-02-02", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 19, "desc": "إيراد فرع الحياة", "amount": 1566.01, "date": "2026-02-03", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 20, "desc": "إيراد فرع مارينا", "amount": 107.0, "date": "2026-02-03", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 21, "desc": "رأس مال", "amount": 50000.0, "date": "2026-02-03", "itemId": 6, "branchId": 1, "itemName": "رأس مال", "branchName": "فرع الحياة", "itemType": "capital", "itemColor": "#0A84FF"}, {"id": 22, "desc": "كشك جديد للحياة", "amount": 20000.0, "date": "2026-02-03", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 23, "desc": "شراء بضاعة", "amount": 16200.0, "date": "2026-02-03", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 24, "desc": "شراء بضاعة كاش سحب مبلغ من البنك", "amount": 5000.0, "date": "2026-02-03", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 25, "desc": "شراء بضاعة", "amount": 1770.0, "date": "2026-02-03", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 26, "desc": "شراء بضاعة", "amount": 1300.0, "date": "2026-02-03", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 27, "desc": "إيراد فرع الحياة", "amount": 437.0, "date": "2026-01-01", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 28, "desc": "إيراد فرع البديعة", "amount": 788.0, "date": "2026-01-01", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 29, "desc": "إيراد فرع مارينا", "amount": 655.03, "date": "2026-01-01", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 30, "desc": "شرء بضاعة كاش سحب مبلغ من البنك", "amount": 1500.0, "date": "2026-01-01", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 31, "desc": "إيراد فرع الحياة", "amount": 2538.0, "date": "2026-01-01", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 32, "desc": "إيراد فرع مارينا", "amount": 499.0, "date": "2026-01-01", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 33, "desc": "إيراد فرع البديعة", "amount": 320.0, "date": "2026-01-01", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 34, "desc": "إيراد فرع الحياة", "amount": 0.02, "date": "2026-01-01", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 35, "desc": "إيراد فرع الحياة", "amount": 3288.0, "date": "2026-01-01", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 36, "desc": "إيراد فرع مارينا", "amount": 601.0, "date": "2026-01-01", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 37, "desc": "إيراد فرع البديعة", "amount": 318.01, "date": "2026-01-01", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 38, "desc": "إيراد فرع الحياة", "amount": 4159.0, "date": "2026-01-01", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 39, "desc": "إيراد فرع البديعة", "amount": 2035.0, "date": "2026-01-01", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 40, "desc": "إيراد فرع مارينا", "amount": 1195.0, "date": "2026-01-01", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 41, "desc": "إيراد فرع الحياة", "amount": 3399.0, "date": "2026-01-01", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 42, "desc": "إيراد فرع مارينا", "amount": 989.01, "date": "2026-02-08", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 43, "desc": "إيراد فرع البديعة", "amount": 1711.0, "date": "2026-02-08", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 44, "desc": "شراء بضاعة", "amount": 248.0, "date": "2026-02-08", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 45, "desc": "شراء بضاعة", "amount": 4200.0, "date": "2026-02-08", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 46, "desc": "شراء بضاعة", "amount": 10000.0, "date": "2026-02-08", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 47, "desc": "شراء بضاعة كاش سحب مبلغ من البنك", "amount": 3400.0, "date": "2026-02-08", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 48, "desc": "رسوم مواقف", "amount": 13.8, "date": "2026-02-08", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 49, "desc": "غداء عمل", "amount": 66.0, "date": "2026-02-08", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 50, "desc": "استرجاع مبلغ مالي لي عميل", "amount": 375.0, "date": "2026-02-07", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 51, "desc": "إيراد فرع الحياة", "amount": 173.0, "date": "2026-02-09", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 52, "desc": "إيراد فرع مارينا", "amount": 355.0, "date": "2026-02-09", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 53, "desc": "إيراد فرع البديعة", "amount": 242.0, "date": "2026-02-09", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 54, "desc": "شراء بضاعة", "amount": 10000.0, "date": "2026-02-09", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 55, "desc": "مصروف اداري وعمومي", "amount": 3000.0, "date": "2026-02-09", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 56, "desc": "إيراد فرع الحياة", "amount": 1854.0, "date": "2026-02-09", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 57, "desc": "إيراد فرع مارينا", "amount": 103.0, "date": "2026-02-09", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 58, "desc": "إيراد فرع البديعة", "amount": 607.0, "date": "2026-02-09", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 59, "desc": "شراء بضاعة", "amount": 800.0, "date": "2026-02-09", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 60, "desc": "إيراد فرع الحياة", "amount": 2339.0, "date": "2026-02-10", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 61, "desc": "إيراد فرع مارينا", "amount": 834.0, "date": "2026-02-10", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 62, "desc": "إيراد فرع البديعة", "amount": 241.0, "date": "2026-02-10", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 63, "desc": "إيراد فرع الحياة", "amount": 1784.0, "date": "2026-02-11", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 64, "desc": "إيراد فرع مارينا", "amount": 815.0, "date": "2026-02-11", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 65, "desc": "إيراد فرع البديعة", "amount": 712.0, "date": "2026-02-11", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 66, "desc": "شراء بضاعة", "amount": 84.0, "date": "2026-02-11", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 67, "desc": "شراء بضاعة", "amount": 5350.0, "date": "2026-02-11", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 68, "desc": "إيراد فرع الحياة", "amount": 2752.0, "date": "2026-02-12", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 69, "desc": "إيراد فرع مارينا", "amount": 209.0, "date": "2026-02-12", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 70, "desc": "إيراد فرع البديعة", "amount": 1126.0, "date": "2026-02-12", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 71, "desc": "إيراد فرع الحياة", "amount": 7368.0, "date": "2026-02-13", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 72, "desc": "إيراد فرع مارينا", "amount": 921.0, "date": "2026-02-13", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 73, "desc": "إيراد فرع البديعة", "amount": 497.0, "date": "2026-02-13", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 74, "desc": "إيراد فرع الحياة", "amount": 3738.0, "date": "2026-02-14", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 75, "desc": "إيراد فرع مارينا", "amount": 537.0, "date": "2026-02-14", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 76, "desc": "إيراد فرع البديعة", "amount": 944.0, "date": "2026-02-14", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 77, "desc": "إيراد فرع الحياة", "amount": 1396.02, "date": "2026-02-15", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 78, "desc": "إيراد فرع مارينا", "amount": 392.0, "date": "2026-02-15", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 79, "desc": "إيراد فرع البديعة", "amount": 189.0, "date": "2026-02-15", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 80, "desc": "شراء بضاعة", "amount": 2500.0, "date": "2026-02-16", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 81, "desc": "سحب من قبل البنك لي عدم الوصول للحد المطلب لي نقاط البيع", "amount": 345.0, "date": "2026-02-16", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 82, "desc": "إيراد فرع الحياة", "amount": 1797.0, "date": "2026-02-16", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 83, "desc": "إيراد فرع مارينا", "amount": 158.0, "date": "2026-02-16", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 84, "desc": "إيراد فرع البديعة", "amount": 453.0, "date": "2026-02-16", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 85, "desc": "إيراد فرع الحياة", "amount": 2269.0, "date": "2026-02-17", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 86, "desc": "إيراد فرع مارينا", "amount": 74.0, "date": "2026-02-17", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 87, "desc": "إيراد فرع البديعة", "amount": 481.0, "date": "2026-02-17", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 88, "desc": "337,50", "amount": 377.0, "date": "2026-02-18", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 89, "desc": "حواله بنكيه", "amount": 1000.0, "date": "2026-02-18", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 90, "desc": "إيراد فرع الحياة", "amount": 672.0, "date": "2026-02-18", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 91, "desc": "إيراد فرع مارينا", "amount": 194.0, "date": "2026-02-18", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 92, "desc": "إيراد فرع مارينا", "amount": 194.0, "date": "2026-02-18", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 93, "desc": "إيراد فرع مارينا", "amount": 418.0, "date": "2026-02-19", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 94, "desc": "إيراد فرع البديعة", "amount": 1013.0, "date": "2026-02-19", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 95, "desc": "إيراد فرع الحياة", "amount": 1521.0, "date": "2026-02-19", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 96, "desc": "شراء بضاعة", "amount": 5000.0, "date": "2026-02-20", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 97, "desc": "شراء بضاعة", "amount": 2900.0, "date": "2026-02-20", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 98, "desc": "شراء بضاعة", "amount": 10400.0, "date": "2026-02-20", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 99, "desc": "شراء بضاعة", "amount": 5000.0, "date": "2026-02-20", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 100, "desc": "شراء بضاعة", "amount": 368.0, "date": "2026-02-20", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 101, "desc": "13,80", "amount": 13.8, "date": "2026-02-20", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 102, "desc": "13,80", "amount": 13.8, "date": "2026-02-20", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 103, "desc": "إيراد فرع مارينا", "amount": 711.0, "date": "2026-02-20", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 104, "desc": "إيراد فرع البديعة", "amount": 752.0, "date": "2026-02-20", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 105, "desc": "إيراد فرع الحياة", "amount": 2536.0, "date": "2026-02-20", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 106, "desc": "إيراد فرع البديعة", "amount": 149.0, "date": "2026-02-20", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 107, "desc": "شراء بضاعة", "amount": 650.0, "date": "2026-02-20", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 108, "desc": "إيراد فرع الحياة", "amount": 2633.0, "date": "1900-01-21", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 109, "desc": "إيراد فرع البديعة", "amount": 606.0, "date": "2026-02-21", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 110, "desc": "إيراد فرع مارينا", "amount": 1149.0, "date": "2026-02-21", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 111, "desc": "إيراد فرع البديعة", "amount": 381.0, "date": "2026-02-21", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 112, "desc": "إيراد فرع الحياة", "amount": 1758.0, "date": "2026-02-22", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 113, "desc": "إيراد فرع مارينا", "amount": 1134.0, "date": "2026-02-22", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 114, "desc": "إيراد فرع البديعة", "amount": 1404.0, "date": "2026-02-22", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 115, "desc": "إيراد فرع الحياة", "amount": 1347.0, "date": "2026-02-23", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 116, "desc": "إيراد فرع البديعة", "amount": 454.0, "date": "2026-02-23", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 117, "desc": "إيراد فرع مارينا", "amount": 367.0, "date": "2026-02-23", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 118, "desc": "إيراد فرع الحياة", "amount": 2180.0, "date": "2026-02-24", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 119, "desc": "إيراد فرع مارينا", "amount": 648.0, "date": "2026-02-24", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 120, "desc": "إيراد فرع البديعة", "amount": 766.0, "date": "2026-02-24", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 121, "desc": "شراء بضاعة", "amount": 5050.0, "date": "2026-02-24", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 122, "desc": "شراء بضاعة", "amount": 2250.0, "date": "2026-02-24", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 123, "desc": "شراء بضاعة", "amount": 1400.0, "date": "2026-02-24", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 124, "desc": "شراء بضاعة", "amount": 1150.0, "date": "2026-02-24", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 125, "desc": "شراء بضاعة", "amount": 500.0, "date": "2026-02-25", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 126, "desc": "إيراد فرع الحياة", "amount": 2469.0, "date": "2026-02-25", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 127, "desc": "إيراد فرع مارينا", "amount": 685.0, "date": "2026-02-25", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 128, "desc": "إيراد فرع البديعة", "amount": 1249.0, "date": "2026-02-26", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 129, "desc": "إيراد فرع الحياة", "amount": 6543.0, "date": "2026-02-26", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 130, "desc": "إيراد فرع مارينا", "amount": 1521.0, "date": "2026-02-26", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 131, "desc": "إيراد فرع البديعة", "amount": 2404.0, "date": "2026-02-26", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 132, "desc": "إيراد فرع مارينا", "amount": 4398.0, "date": "2026-02-27", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 133, "desc": "إيراد فرع البديعة", "amount": 3228.0, "date": "2026-02-27", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 134, "desc": "إيراد فرع الحياة", "amount": 7060.0, "date": "2026-02-27", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 135, "desc": "شراء بضاعة", "amount": 1050.0, "date": "2026-02-27", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 136, "desc": "شراء بضاعة", "amount": 1900.0, "date": "2026-02-27", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 137, "desc": "شراء بضاعة", "amount": 545.0, "date": "2026-02-27", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 138, "desc": "شراء بضاعة", "amount": 1600.0, "date": "2026-02-27", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 139, "desc": "إيراد فرع البديعة", "amount": 2157.0, "date": "2026-02-28", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 140, "desc": "إيراد فرع مارينا", "amount": 1690.0, "date": "2026-02-28", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 141, "desc": "إيراد فرع الحياة", "amount": 8009.0, "date": "2026-02-28", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 142, "desc": "مصروف ديكور كشك", "amount": 20000.0, "date": "2026-01-01", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 143, "desc": "إيراد فرع الحياة", "amount": 6930.0, "date": "2026-03-01", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 144, "desc": "إيراد فرع البديعة", "amount": 3717.0, "date": "2026-03-01", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 145, "desc": "إيراد فرع مارينا", "amount": 3469.0, "date": "2026-03-01", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 146, "desc": "إيراد فرع البديعة", "amount": 2791.0, "date": "2026-03-02", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 147, "desc": "إيراد فرع مارينا", "amount": 2507.0, "date": "2026-03-02", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 148, "desc": "إيراد فرع الحياة", "amount": 6406.0, "date": "2026-03-02", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 149, "desc": "مصروف ديكور كشك", "amount": 19000.0, "date": "2026-03-02", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 150, "desc": "شراء بضاعة", "amount": 7500.0, "date": "2026-03-02", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 151, "desc": "شراء بضاعة", "amount": 6100.0, "date": "2026-03-02", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 152, "desc": "شراء بضاعة", "amount": 264.0, "date": "2026-03-02", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 153, "desc": "شراء بضاعة", "amount": 2200.0, "date": "2026-03-02", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 154, "desc": "مصروف إداري و عمومي", "amount": 10.0, "date": "2026-03-02", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 155, "desc": "إيراد فرع الحياة", "amount": 5657.0, "date": "2026-03-03", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 156, "desc": "إيراد فرع البديعة", "amount": 2974.0, "date": "2026-03-03", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 157, "desc": "إيراد فرع مارينا", "amount": 1858.0, "date": "2026-03-03", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 158, "desc": "شراء بضاعة", "amount": 875.0, "date": "2026-03-03", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 159, "desc": "رواتب", "amount": 5000.0, "date": "2026-03-03", "itemId": 5, "branchId": 1, "itemName": "رواتب", "branchName": "فرع الحياة", "itemType": "salary", "itemColor": "#FF6B35"}, {"id": 160, "desc": "إيراد فرع البديعة", "amount": 4294.0, "date": "2026-03-04", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 161, "desc": "إيراد فرع مارينا", "amount": 3433.0, "date": "2026-03-04", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 162, "desc": "إيراد فرع الحياة", "amount": 8004.0, "date": "2026-03-04", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 163, "desc": "مردود مشتريات", "amount": 149.0, "date": "2026-03-05", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 164, "desc": "إيراد فرع الحياة", "amount": 5570.0, "date": "2026-03-05", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 165, "desc": "إيراد فرع مارينا", "amount": 1696.0, "date": "2026-03-05", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 166, "desc": "إيراد فرع البديعة", "amount": 3765.0, "date": "2026-03-05", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 167, "desc": "رواتب", "amount": 5000.0, "date": "2026-03-07", "itemId": 5, "branchId": 1, "itemName": "رواتب", "branchName": "فرع الحياة", "itemType": "salary", "itemColor": "#FF6B35"}, {"id": 168, "desc": "إيراد فرع مارينا", "amount": 4738.0, "date": "2026-03-06", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 169, "desc": "إيراد فرع البديعة", "amount": 3681.0, "date": "2026-03-06", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 170, "desc": "إيراد فرع الحياة", "amount": 7931.0, "date": "2026-03-06", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 171, "desc": "شراء بضاعة", "amount": 2250.0, "date": "2026-03-07", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 172, "desc": "شراء بضاعة", "amount": 6200.0, "date": "2026-03-07", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 173, "desc": "شراء بضاعة", "amount": 1900.0, "date": "2026-03-07", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 174, "desc": "شراء بضاعة", "amount": 1200.0, "date": "2026-03-07", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 175, "desc": "شراء بضاعة", "amount": 700.0, "date": "2026-03-07", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 176, "desc": "شراء بضاعة", "amount": 300.0, "date": "2026-03-07", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 177, "desc": "شراء بضاعة", "amount": 2800.0, "date": "2026-03-07", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 178, "desc": "شراء بضاعة", "amount": 4800.0, "date": "2026-03-07", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 179, "desc": "مردود مشتريات", "amount": 100.0, "date": "2026-03-07", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 180, "desc": "إيراد فرع البديعة", "amount": 4216.0, "date": "2026-03-07", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 181, "desc": "إيراد فرع مارينا", "amount": 6044.0, "date": "2026-03-07", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 182, "desc": "إيراد فرع الحياة", "amount": 9221.0, "date": "2026-03-07", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 183, "desc": "مردود مشتريات", "amount": 70.0, "date": "2026-03-09", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 184, "desc": "إيراد فرع مارينا", "amount": 5257.0, "date": "2026-03-08", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 185, "desc": "إيراد فرع البديعة", "amount": 4457.0, "date": "2026-03-08", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 186, "desc": "إيراد فرع الحياة", "amount": 10988.0, "date": "2026-03-08", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 187, "desc": "شراء بضاعة", "amount": 4550.0, "date": "2026-03-08", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 188, "desc": "شراء بضاعة", "amount": 3100.0, "date": "2026-03-08", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 189, "desc": "شراء بضاعة", "amount": 3750.0, "date": "2026-03-08", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 190, "desc": "شراء بضاعة", "amount": 100.0, "date": "2026-03-08", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 191, "desc": "شراء بضاعة", "amount": 2420.0, "date": "2026-03-08", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 192, "desc": "رواتب", "amount": 3000.0, "date": "2026-03-09", "itemId": 5, "branchId": 1, "itemName": "رواتب", "branchName": "فرع الحياة", "itemType": "salary", "itemColor": "#FF6B35"}, {"id": 193, "desc": "مردود مشتريات", "amount": 75.0, "date": "2026-03-09", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 194, "desc": "إيراد فرع الحياة", "amount": 10449.0, "date": "2026-03-09", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 195, "desc": "إيراد فرع مارينا", "amount": 5024.0, "date": "2026-03-09", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 196, "desc": "إيراد فرع البديعة", "amount": 6000.0, "date": "2026-03-09", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 197, "desc": "شراء بضاعة", "amount": 3500.0, "date": "2026-03-10", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 198, "desc": "شراء بضاعة", "amount": 140.0, "date": "2026-03-10", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 199, "desc": "شراء بضاعة", "amount": 140.0, "date": "2026-03-10", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 200, "desc": "شراء بضاعة", "amount": 1500.0, "date": "2026-03-10", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 201, "desc": "شراء بضاعة", "amount": 9000.0, "date": "2026-03-10", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 202, "desc": "إيراد فرع مارينا", "amount": 586.0, "date": "2026-03-11", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 203, "desc": "إيراد فرع مارينا", "amount": 6805.0, "date": "2026-03-11", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 204, "desc": "إيراد فرع البديعة", "amount": 6621.0, "date": "2026-03-11", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 205, "desc": "إيراد فرع الحياة", "amount": 11295.0, "date": "2026-03-11", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 206, "desc": "إيراد فرع الحياة", "amount": 11970.0, "date": "2026-03-12", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 207, "desc": "إيراد فرع البديعة", "amount": 4944.0, "date": "2026-03-12", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 208, "desc": "إيراد فرع مارينا", "amount": 5453.0, "date": "2026-03-12", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 209, "desc": "تعديل كشك", "amount": 1500.0, "date": "2026-03-12", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 210, "desc": "مردود مشتريات", "amount": 30.0, "date": "2026-03-12", "itemId": 2, "branchId": 1, "itemName": "مصروفات", "branchName": "فرع الحياة", "itemType": "expense", "itemColor": "#FF453A"}, {"id": 211, "desc": "إيراد فرع الحياة", "amount": 9950.0, "date": "2026-03-13", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 212, "desc": "إيراد فرع مارينا", "amount": 4290.0, "date": "2026-03-13", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 213, "desc": "إيراد فرع البديعة", "amount": 4705.0, "date": "2026-03-13", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 214, "desc": "إيراد فرع الحياة", "amount": 8423.0, "date": "2026-03-14", "itemId": 1, "branchId": 1, "itemName": "إيرادات", "branchName": "فرع الحياة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 215, "desc": "إيراد فرع البديعة", "amount": 4305.0, "date": "2026-03-14", "itemId": 1, "branchId": 3, "itemName": "إيرادات", "branchName": "فرع البديعة", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 216, "desc": "إيراد فرع مارينا", "amount": 4238.0, "date": "2026-03-14", "itemId": 1, "branchId": 2, "itemName": "إيرادات", "branchName": "فرع مارينا", "itemType": "revenue", "itemColor": "#30D158"}, {"id": 217, "desc": "شراء بضاعة", "amount": 6600.0, "date": "2026-03-14", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 218, "desc": "شراء بضاعة", "amount": 10000.0, "date": "2026-03-14", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 219, "desc": "شراء بضاعة", "amount": 650.0, "date": "2026-03-14", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 220, "desc": "شراء بضاعة", "amount": 790.0, "date": "2026-03-14", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}, {"id": 221, "desc": "شراء بضاعة", "amount": 860.0, "date": "2026-03-14", "itemId": 3, "branchId": 1, "itemName": "شراء بضاعة", "branchName": "فرع الحياة", "itemType": "goods", "itemColor": "#FF9F0A"}], "nextMId": 222, "nextBId": 4, "nextItId": 7, "nextEId": 10, "movFilter": "all", "currentStmt": "income"};
+  try{
+    var saved=localStorage.getItem('acc-v5');
+    if(saved){
+      S=Object.assign({},S,JSON.parse(saved));
+    } else {
+      S=Object.assign({},S,PRELOADED);
+      localStorage.setItem('acc-v5',JSON.stringify(S));
+    }
+  }catch(e){S=Object.assign({},S,PRELOADED);}
+}
+function save(){try{localStorage.setItem('acc-v5',JSON.stringify(S));}catch(e){}}
+load();
+
+// ── TOAST ──
+function showToast(msg,type){
+  var el=document.getElementById('toast');
+  el.textContent=msg;
+  el.style.background=type==='e'?'rgba(255,69,58,.93)':'rgba(48,209,88,.93)';
+  el.classList.add('show');
+  setTimeout(function(){el.classList.remove('show');},2400);
+}
+
+// ── NAVIGATION ──
+function showPage(id){
+  var pages=document.querySelectorAll('.page');
+  for(var i=0;i<pages.length;i++) pages[i].classList.remove('active');
+  var tabs=document.querySelectorAll('.ti');
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
+  var pg=document.getElementById('page-'+id);
+  if(pg) pg.classList.add('active');
+  var map={dashboard:0,director:1,movements:2,employees:3,zakat:4,more:5};
+  if(map[id]!==undefined) tabs[map[id]].classList.add('active');
+  var renders={
+    dashboard:function(){renderDash();renderDashChart();},
+    director:function(){renderDir();fillCmpSelects();},
+    movements:renderMovements,
+    branches:renderBranches,
+    employees:renderEmployees,
+    items:renderItems,
+    zakat:renderZakat,
+    finance:function(){renderStmt(S.currentStmt);},
+    report:renderReport,
+    more:updateDataInfo
+  };
+  if(renders[id]) renders[id]();
+  document.getElementById('fab').style.display = (id==='dashboard'||id==='movements') ? 'flex' : 'none';
+}
+
+// ── MODALS ──
+function openMod(id){
+  if(id==='mod-add'){
+    document.getElementById('m-date').value=new Date().toISOString().split('T')[0];
+    fillMovSels();
+  }
+  if(id==='mod-gt'){
+    document.getElementById('gt-inp').value=S.dailyTarget;
+    calcAutoHint();
+  }
+  document.getElementById(id).classList.add('open');
+}
+function closeMod(id){document.getElementById(id).classList.remove('open');}
+var mods=document.querySelectorAll('.mo');
+for(var i=0;i<mods.length;i++){
+  mods[i].addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+}
+
+// ── ORG ──
+function editName(){
+  document.getElementById('orgNm').parentElement.style.display='none';
+  var inp=document.getElementById('orgNmInp');
+  inp.style.display='block'; inp.value=S.orgName; inp.focus();
+}
+function saveName(){
+  var v=document.getElementById('orgNmInp').value.trim();
+  if(v){S.orgName=v;document.getElementById('orgNm').textContent=v;document.getElementById('dir-nm').textContent=v;save();}
+  document.getElementById('orgNmInp').style.display='none';
+  document.getElementById('orgNm').parentElement.style.display='flex';
+}
+document.getElementById('logoFile').addEventListener('change',function(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    S.orgLogo=ev.target.result;
+    var ids=['logoImg','dir-img'];
+    for(var i=0;i<ids.length;i++){
+      var el=document.getElementById(ids[i]);
+      el.src=ev.target.result; el.style.display='block';
+    }
+    document.getElementById('logoEm').style.display='none';
+    document.getElementById('dir-em').style.display='none';
+    save(); showToast('تم رفع الشعار');
+  };
+  r.readAsDataURL(f);
+});
+
+// ── CALCULATIONS ──
+function fmt(n){return Math.abs(n).toLocaleString('ar-SA');}
+function getStats(){
+  var rev=0,exp=0,rent=0,goods=0,sal=0,cap=0;
+  for(var i=0;i<S.movements.length;i++){
+    var m=S.movements[i];
+    var item=getItem(m.itemId);
+    if(!item) continue;
+    if(item.type==='revenue') rev+=m.amount;
+    else if(item.type==='goods') goods+=m.amount;
+    else if(item.type==='salary') sal+=m.amount;
+    else if(item.type==='capital') cap+=m.amount;
+    else if(item.type==='expense'){
+      // إيجار منفصل
+      if(item.name==='إيجار'||item.name.indexOf('ايجار')!==-1||item.name.indexOf('إيجار')!==-1) rent+=m.amount;
+      else exp+=m.amount;
+    }
+  }
+  var totalCosts=exp+rent+goods+sal;
+  return {rev:rev,exp:exp,rent:rent,goods:goods,sal:sal,cap:cap,totalCosts:totalCosts,net:rev-totalCosts};
+}
+function getBStats(bid){
+  var rev=0,exp=0,rent=0,goods=0,sal=0;
+  var goodsTotal=0;
+  // اجمع البضاعة الكلية اولاً
+  for(var i=0;i<S.movements.length;i++){
+    var item=getItem(S.movements[i].itemId);
+    if(item&&item.type==='goods') goodsTotal+=S.movements[i].amount;
+  }
+  var goodsShare=S.branches.length>0?goodsTotal/S.branches.length:0;
+  // الموظفون لهذا الفرع
+  var branchSalary=getBranchMonthlySalary(bid);
+  for(var i=0;i<S.movements.length;i++){
+    var m=S.movements[i];
+    if(m.branchId!==bid) continue;
+    var item=getItem(m.itemId);
+    if(!item) continue;
+    if(item.type==='revenue') rev+=m.amount;
+    else if(item.type==='salary') sal+=m.amount;
+    else if(item.type==='expense'){
+      if(item.name==='إيجار'||item.name.indexOf('ايجار')!==-1||item.name.indexOf('إيجار')!==-1) rent+=m.amount;
+      else exp+=m.amount;
+    }
+  }
+  var totalCosts=exp+rent+goodsShare+sal;
+  return {rev:rev,exp:exp,rent:rent,goods:goodsShare,sal:sal,totalCosts:totalCosts,net:rev-totalCosts};
+}
+function getItemTotal(iid){
+  var t=0;
+  for(var i=0;i<S.movements.length;i++) if(S.movements[i].itemId===iid) t+=S.movements[i].amount;
+  return t;
+}
+function getItem(id){for(var i=0;i<S.items.length;i++) if(S.items[i].id===id) return S.items[i]; return null;}
+function getBranch(id){for(var i=0;i<S.branches.length;i++) if(S.branches[i].id===id) return S.branches[i]; return null;}
+function getTotalMonthlySalary(){
+  var t=0;
+  for(var i=0;i<S.employees.length;i++) t+=S.employees[i].salary;
+  return t;
+}
+function getBranchMonthlySalary(bid){
+  var t=0;
+  var branchCount=S.branches.length||1;
+  for(var i=0;i<S.employees.length;i++){
+    var e=S.employees[i];
+    if(e.isManager) t+=e.salary/branchCount;
+    else if(e.branchId===bid) t+=e.salary;
+  }
+  return t;
+}
+function calcAutoHint(){
+  var rentMonthly=0;
+  for(var i=0;i<S.branches.length;i++){
+    var r=S.branches[i].rent||{annual:0};
+    rentMonthly+=r.annual/12;
+  }
+  var salMonthly=getTotalMonthlySalary();
+  var totalMonthly=rentMonthly+salMonthly;
+  var dailySuggested=Math.round(totalMonthly/30);
+  var el=document.getElementById('gt-auto-hint');
+  if(el) el.textContent='💡 الالتزامات الشهرية: إيجار '+fmt(rentMonthly)+' + رواتب '+fmt(salMonthly)+' = '+fmt(totalMonthly)+' ريال ÷ 30 يوم = '+fmt(dailySuggested)+' ريال/يوم';
+}
+
+// ── FILL SELECTS ──
+function fillMovSels(){
+  var isel=document.getElementById('m-item');
+  var bsel=document.getElementById('m-branch');
+  isel.innerHTML='';
+  bsel.innerHTML='';
+  for(var i=0;i<S.items.length;i++){
+    var opt=document.createElement('option');
+    opt.value=S.items[i].id;
+    opt.textContent=S.items[i].name;
+    isel.appendChild(opt);
+  }
+  for(var i=0;i<S.branches.length;i++){
+    var opt=document.createElement('option');
+    opt.value=S.branches[i].id;
+    opt.textContent=S.branches[i].name;
+    bsel.appendChild(opt);
+  }
+  checkGoodsSplit();
+}
+function checkGoodsSplit(){
+  var isel=document.getElementById('m-item');
+  var sec=document.getElementById('goods-split-section');
+  if(!isel||!sec) return;
+  var item=getItem(parseInt(isel.value));
+  sec.style.display=(item&&item.type==='goods')?'block':'none';
+}
+
+// ── SAVE MOVEMENT ──
+function previewAttach(inp){
+  var file=inp.files[0];
+  if(!file)return;
+  document.getElementById('m-attach-name').textContent='📎 '+file.name;
+  document.getElementById('m-attach-name').style.display='block';
+  document.getElementById('m-attach-clear').style.display='block';
+  if(file.type.indexOf('image')===0){
+    var r=new FileReader();
+    r.onload=function(ev){
+      document.getElementById('m-attach-img').src=ev.target.result;
+      document.getElementById('m-attach-preview').style.display='block';
+      document.getElementById('m-attach-placeholder').style.display='none';
+    };
+    r.readAsDataURL(file);
+  }
+}
+function clearAttach(){
+  document.getElementById('m-attach').value='';
+  document.getElementById('m-attach-img').src='';
+  document.getElementById('m-attach-preview').style.display='none';
+  document.getElementById('m-attach-placeholder').style.display='block';
+  document.getElementById('m-attach-name').style.display='none';
+  document.getElementById('m-attach-clear').style.display='none';
+}
+function saveMov(){
+  var desc=document.getElementById('m-desc').value.trim();
+  var amt=parseFloat(document.getElementById('m-amt').value)||0;
+  var date=document.getElementById('m-date').value;
+  var iid=parseInt(document.getElementById('m-item').value);
+  var bid=parseInt(document.getElementById('m-branch').value);
+  if(!desc||!amt||!date){showToast('يرجى تعبئة جميع الحقول','e');return;}
+  var item=getItem(iid);
+  var branch=getBranch(bid);
+  var attachImg=document.getElementById('m-attach-img').src;
+  var attachName=document.getElementById('m-attach-name').textContent;
+  var mov={
+    id:S.nextMId++,desc:desc,amount:amt,date:date,
+    itemId:iid,branchId:bid,
+    itemName:item?item.name:'',branchName:branch?branch.name:'',
+    itemType:item?item.type:'expense',itemColor:item?item.color:'#888'
+  };
+  if(attachImg&&attachImg.length>10&&attachImg.indexOf('data:image')===0){
+    mov.attachImg=attachImg;
+    mov.attachName=attachName.replace('📎 ','');
+  }
+  S.movements.unshift(mov);
+  save(); closeMod('mod-add'); renderAll(); showToast('تم حفظ القيد ✓');
+  document.getElementById('m-desc').value='';
+  document.getElementById('m-amt').value='';
+  clearAttach();
+}
+function delMov(id){
+  S.movements=S.movements.filter(function(m){return m.id!==id;});
+  save(); renderAll(); showToast('تم الحذف');
+}
+
+// ── MOVEMENTS PAGE ──
+function renderMovements(){
+  var fil=document.getElementById('mov-filters');
+  fil.innerHTML='';
+  var allBtn=document.createElement('div');
+  allBtn.className='fc'+(S.movFilter==='all'?' active':'');
+  allBtn.textContent='الكل';
+  allBtn.onclick=function(){S.movFilter='all';renderMovements();};
+  fil.appendChild(allBtn);
+  for(var i=0;i<S.items.length;i++){
+    (function(it){
+      var btn=document.createElement('div');
+      btn.className='fc'+(S.movFilter===it.name?' active':'');
+      btn.textContent=it.name;
+      btn.onclick=function(){S.movFilter=it.name;renderMovements();};
+      fil.appendChild(btn);
+    })(S.items[i]);
+  }
+  var list=S.movements.slice();
+  if(S.movFilter!=='all') list=list.filter(function(m){return m.itemName===S.movFilter;});
+  // ترتيب تنازلي حسب التاريخ — الأحدث أولاً
+  list.sort(function(a,b){
+    var da=a.date?a.date.replace(/-/g,''):'0';
+    var db=b.date?b.date.replace(/-/g,''):'0';
+    return db>da?1:db<da?-1:0;
+  });
+  var el=document.getElementById('mov-list');
+  if(list.length===0){el.innerHTML='<div class="empty"><div style="font-size:40px">📭</div><div style="margin-top:8px">لا توجد حركات</div></div>';return;}
+  el.innerHTML='';
+  for(var i=0;i<list.length;i++) el.innerHTML+=movHTML(list[i],true);
+}
+function movHTML(m,showDel){
+  var color=m.itemColor||'#888';
+  var sign=m.itemType==='revenue'?'+':'−';
+  var em=m.itemType==='revenue'?'📈':m.itemType==='goods'?'📦':m.itemType==='salary'?'💼':'📉';
+  var del=showDel?'<button onclick="delMov('+m.id+')" style="background:none;border:none;color:var(--a4);font-size:15px;cursor:pointer">🗑️</button>':'';
+  var attach='';
+  if(m.attachImg){
+    attach='<div style="margin:6px 16px 10px;cursor:pointer" onclick="viewAttach('+m.id+')">'
+      +'<img src="'+m.attachImg+'" style="max-height:70px;border-radius:8px;border:1px solid rgba(255,255,255,.1)">'
+      +'<div style="font-size:10px;color:var(--a3);margin-top:3px">📎 '+(m.attachName||'إثبات')+'</div></div>';
+  }
+  return '<div style="border-bottom:1px solid var(--sep)">'
+    +'<div class="mi" style="border-bottom:none"><div class="mico" style="background:'+color+'22">'+em+'</div>'
+    +'<div class="mc"><div class="mtl">'+m.desc+'</div><div class="mmt">'+m.itemName+' • '+m.branchName+' • '+m.date+'</div></div>'
+    +'<div style="text-align:left"><div class="mam" style="color:'+color+'">'+sign+fmt(m.amount)+'</div>'+del+'</div></div>'
+    +attach+'</div>';
+}
+function viewAttach(id){
+  var m=S.movements.find(function(x){return x.id===id;});
+  if(!m||!m.attachImg)return;
+  var overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px';
+  overlay.onclick=function(){document.body.removeChild(overlay);};
+  overlay.innerHTML='<div style="font-size:13px;color:rgba(255,255,255,.7);margin-bottom:12px">📎 '+(m.attachName||'إثبات')+' • اضغط للإغلاق</div>'
+    +'<img src="'+m.attachImg+'" style="max-width:100%;max-height:80vh;border-radius:12px;box-shadow:0 8px 40px rgba(0,0,0,.5)">'
+    +'<button onclick="downloadAttach('+id+')" style="margin-top:16px;background:var(--a3);color:#fff;border:none;border-radius:12px;padding:12px 24px;font-size:14px;font-family:inherit;cursor:pointer">⬇️ تحميل</button>';
+  document.body.appendChild(overlay);
+}
+function downloadAttach(id){
+  var m=S.movements.find(function(x){return x.id===id;});
+  if(!m||!m.attachImg)return;
+  var a=document.createElement('a');
+  a.href=m.attachImg;
+  a.download=m.attachName||'إثبات.jpg';
+  a.click();
+}
+
+// ── DASHBOARD ──
+function renderDash(){
+  var st=getStats();
+  document.getElementById('d-rev').textContent=fmt(st.rev);
+  document.getElementById('d-total-costs').textContent=fmt(st.totalCosts);
+  document.getElementById('d-rent').textContent=fmt(st.rent);
+  document.getElementById('d-goods').textContent=fmt(st.goods);
+  document.getElementById('d-sal').textContent=fmt(st.sal);
+  var netEl=document.getElementById('d-net');
+  netEl.textContent=fmt(st.net);
+  netEl.style.color=st.net>=0?'var(--a2)':'var(--a4)';
+  var pct=S.dailyTarget>0?Math.min(100,Math.round(st.rev/S.dailyTarget*100)):0;
+  var tc=document.getElementById('d-target-card');
+  tc.innerHTML='<div class="gc mb10" style="background:linear-gradient(135deg,rgba(48,209,88,.12),rgba(10,132,255,.12));border-color:rgba(48,209,88,.18)"><div style="padding:14px 16px"><div class="fbb"><div><div style="font-size:11px;color:var(--ts)">الهدف اليومي الإجمالي</div><div style="font-size:18px;font-weight:700;color:var(--a2)">'+fmt(S.dailyTarget)+' ريال</div></div><button onclick="openMod(\'mod-gt\')" class="bs bsm">تعديل</button></div><div class="pw mt8"><div class="pf" style="width:'+pct+'%;background:linear-gradient(90deg,var(--a2),var(--a3))"></div></div><div style="font-size:11px;color:var(--ts);margin-top:5px">'+pct+'% من الهدف</div></div></div>';
+  var br=document.getElementById('d-branches');
+  br.innerHTML='';
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];
+    var bs=getBStats(b.id);
+    var tp=b.dailyTarget>0?Math.min(100,Math.round(bs.rev/b.dailyTarget*100)):0;
+    var row=document.createElement('div');
+    row.style.cssText='padding:11px 16px;border-bottom:1px solid var(--sep)';
+    row.innerHTML='<div class="fbb" style="margin-bottom:5px"><div style="display:flex;align-items:center;gap:7px"><span>'+b.emoji+'</span><span style="font-size:13px;font-weight:600">'+b.name+'</span></div><span style="font-size:11px;font-weight:700;color:'+b.color+'">'+fmt(bs.rev)+' / '+fmt(b.dailyTarget)+'</span></div><div class="pw"><div class="pf" style="width:'+tp+'%;background:'+b.color+'"></div></div><div style="font-size:10px;color:var(--ts);margin-top:3px">'+tp+'% من الهدف اليومي</div>';
+    br.appendChild(row);
+  }
+  var rec=S.movements.slice().sort(function(a,b){var da=a.date?a.date.replace(/-/g,''):'0';var db=b.date?b.date.replace(/-/g,''):'0';return db>da?1:db<da?-1:0;}).slice(0,5);
+  var recel=document.getElementById('d-recent');
+  if(rec.length===0){recel.innerHTML='<div class="empty"><div style="font-size:40px">📭</div><div style="margin-top:8px">لا توجد حركات بعد</div></div>';}
+  else{recel.innerHTML='';for(var i=0;i<rec.length;i++) recel.innerHTML+=movHTML(rec[i],false);}
+}
+function renderDashChart(){
+  var items=[];
+  for(var i=0;i<S.items.length;i++){
+    var it=S.items[i];
+    if(it.type!=='capital'&&it.type!=='asset'&&it.type!=='liability') items.push(it);
+  }
+  var maxVal=1;
+  for(var i=0;i<items.length;i++){var v=getItemTotal(items[i].id);if(v>maxVal)maxVal=v;}
+  var html='';
+  for(var i=0;i<items.length;i++){
+    var it=items[i];
+    var val=getItemTotal(it.id);
+    var pct=Math.round(val/maxVal*100);
+    html+='<div class="bar-row"><div class="bar-lbl">'+it.name+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+it.color+'"><span class="bar-val">'+fmt(val)+'</span></div></div></div>';
+  }
+  document.getElementById('d-chart').innerHTML=html||'<div style="font-size:12px;color:var(--ts)">لا توجد بيانات</div>';
+}
+
+// ── BRANCHES ──
+function saveBranch(){
+  var name=document.getElementById('b-name').value.trim();
+  if(!name){showToast('يرجى كتابة اسم الفرع','e');return;}
+  var idx=S.branches.length%COLORS.length;
+  S.branches.push({
+    id:S.nextBId++,name:name,
+    location:document.getElementById('b-loc').value.trim(),
+    color:COLORS[idx],emoji:EMOJIS[idx],
+    dailyTarget:parseFloat(document.getElementById('b-tgt').value)||0,
+    rent:{annual:parseFloat(document.getElementById('b-rent-ann').value)||0,freq:document.getElementById('b-rent-freq').value,paid:parseInt(document.getElementById('b-rent-paid').value)||0}
+  });
+  save(); closeMod('mod-branch'); renderAll(); fillCmpSelects(); showToast('تم إضافة الفرع ✓');
+  ['b-name','b-loc','b-tgt','b-rent-ann','b-rent-paid'].forEach(function(id){document.getElementById(id).value='';});
+}
+function openEditBranch(id){
+  var b=getBranch(id);if(!b)return;
+  document.getElementById('eb-id').value=id;
+  document.getElementById('eb-name').value=b.name;
+  document.getElementById('eb-loc').value=b.location;
+  document.getElementById('eb-tgt').value=b.dailyTarget;
+  document.getElementById('eb-rent-ann').value=b.rent?b.rent.annual:0;
+  document.getElementById('eb-rent-freq').value=b.rent?b.rent.freq:'quarterly';
+  document.getElementById('eb-rent-paid').value=b.rent?b.rent.paid:0;
+  openMod('mod-edit-branch');
+}
+function saveEditBranch(){
+  var id=parseInt(document.getElementById('eb-id').value);
+  var b=getBranch(id);if(!b)return;
+  b.name=document.getElementById('eb-name').value.trim()||b.name;
+  b.location=document.getElementById('eb-loc').value.trim();
+  b.dailyTarget=parseFloat(document.getElementById('eb-tgt').value)||0;
+  b.rent={annual:parseFloat(document.getElementById('eb-rent-ann').value)||0,freq:document.getElementById('eb-rent-freq').value,paid:parseInt(document.getElementById('eb-rent-paid').value)||0};
+  save(); closeMod('mod-edit-branch'); renderAll(); fillCmpSelects(); showToast('تم الحفظ ✓');
+}
+function delBranch(id){
+  if(!confirm('حذف الفرع وجميع حركاته؟'))return;
+  S.branches=S.branches.filter(function(b){return b.id!==id;});
+  S.movements=S.movements.filter(function(m){return m.branchId!==id;});
+  save(); renderAll(); fillCmpSelects(); showToast('تم الحذف');
+}
+function renderBranches(){
+  var wrap=document.getElementById('branches-wrap');
+  wrap.innerHTML='';
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];
+    var bs=getBStats(b.id);
+    var r=b.rent||{annual:0,freq:'quarterly',paid:0};
+    var cnt=FREQ_CNT[r.freq]||4;
+    var pp=r.annual/cnt;
+    var paidAmt=pp*r.paid;
+    var tp=b.dailyTarget>0?Math.min(100,Math.round(bs.rev/b.dailyTarget*100)):0;
+    var nms=FREQ_NMS[r.freq]||[];
+    var branchSal=getBranchMonthlySalary(b.id);
+    var goodsShare=S.branches.length>0?bs.goods:0;
+    var div=document.createElement('div');
+    div.className='brc';
+    var rentRows='';
+    for(var j=0;j<nms.length;j++){
+      var pd=j<r.paid;
+      rentRows+='<div class="rq"><div class="rdot '+(pd?'paid':'pend')+'"></div><div style="flex:1"><div style="font-size:13px;font-weight:600">'+nms[j]+'</div><div style="font-size:10px;color:var(--ts)">'+(pd?'✅ مسدد':'⏳ معلق')+'</div></div><div style="font-size:12px;font-weight:700;color:'+(pd?'var(--a2)':'var(--ts)')+'">'+fmt(pp)+' ريال</div></div>';
+    }
+    div.innerHTML='<div class="brh" style="padding:14px 16px;display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:10px;background:'+b.color+'22;display:flex;align-items:center;justify-content:center;font-size:18px">'+b.emoji+'</div><div style="flex:1"><div style="font-size:14px;font-weight:700">'+b.name+'</div><div style="font-size:11px;color:var(--ts)">'+b.location+'</div></div><button onclick="openEditBranch('+b.id+')" class="bs bsm">تعديل</button><button onclick="delBranch('+b.id+')" class="bd bsm" style="margin-right:5px">حذف</button></div>'
+    +'<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--sep)">'
+    +'<div style="background:var(--gb);padding:10px;text-align:center"><div style="font-size:12px;font-weight:700;color:var(--a2)">'+fmt(bs.rev)+'</div><div style="font-size:10px;color:var(--ts);margin-top:1px">إيرادات</div></div>'
+    +'<div style="background:var(--gb);padding:10px;text-align:center"><div style="font-size:12px;font-weight:700;color:var(--a1)">'+fmt(goodsShare)+'</div><div style="font-size:10px;color:var(--ts);margin-top:1px">بضاعة</div></div>'
+    +'<div style="background:var(--gb);padding:10px;text-align:center"><div style="font-size:12px;font-weight:700;color:var(--a6)">'+fmt(branchSal)+'</div><div style="font-size:10px;color:var(--ts);margin-top:1px">رواتب</div></div>'
+    +'<div style="background:var(--gb);padding:10px;text-align:center"><div style="font-size:12px;font-weight:700;color:'+(bs.net>=0?'var(--a2)':'var(--a4)')+'">'+fmt(bs.net)+'</div><div style="font-size:10px;color:var(--ts);margin-top:1px">الصافي</div></div></div>'
+    +'<div style="padding:11px 16px 8px"><div class="fbb" style="margin-bottom:6px"><span style="font-size:12px;color:var(--ts)">🎯 الهدف اليومي: '+fmt(b.dailyTarget)+' ريال</span><span style="font-size:12px;font-weight:700;color:'+b.color+'">'+tp+'%</span></div><div class="pw"><div class="pf" style="width:'+tp+'%;background:'+b.color+'"></div></div></div>'
+    +'<div style="padding:0 16px 12px"><div style="font-size:12px;font-weight:600;color:var(--ts);margin-bottom:7px">🏠 الإيجار • '+FREQ_LBL[r.freq]+' • السنوي: '+fmt(r.annual)+' ريال</div>'
+    +'<div style="display:flex;gap:8px;margin-bottom:9px">'
+    +'<div style="flex:1;background:rgba(48,209,88,.1);border-radius:10px;padding:8px;text-align:center"><div style="font-size:12px;font-weight:700;color:var(--a2)">'+fmt(paidAmt)+'</div><div style="font-size:10px;color:var(--ts)">مسدد</div></div>'
+    +'<div style="flex:1;background:rgba(255,159,10,.1);border-radius:10px;padding:8px;text-align:center"><div style="font-size:12px;font-weight:700;color:var(--a1)">'+fmt(r.annual-paidAmt)+'</div><div style="font-size:10px;color:var(--ts)">متبقي</div></div>'
+    +'</div>'+rentRows+'</div>';
+    wrap.appendChild(div);
+  }
+  var addBtn=document.createElement('button');
+  addBtn.className='bp';
+  addBtn.style.marginTop='10px';
+  addBtn.textContent='＋ إضافة فرع جديد';
+  addBtn.onclick=function(){openMod('mod-branch');};
+  wrap.appendChild(addBtn);
+}
+
+// ── EMPLOYEES ──
+function openAddEmpMod(isMgr){
+  document.getElementById('emp-edit-id').value='';
+  document.getElementById('emp-name').value='';
+  document.getElementById('emp-sal').value='';
+  document.getElementById('emp-mod-title').textContent=isMgr?'👔 إضافة مدير':'👤 إضافة موظف';
+  var bgrp=document.getElementById('emp-branch-grp');
+  var mgrp=document.getElementById('emp-mgr-grp');
+  if(isMgr){bgrp.style.display='none';mgrp.style.display='block';}
+  else{
+    bgrp.style.display='block';mgrp.style.display='none';
+    var bsel=document.getElementById('emp-branch');
+    bsel.innerHTML='';
+    for(var i=0;i<S.branches.length;i++){
+      var opt=document.createElement('option');
+      opt.value=S.branches[i].id;
+      opt.textContent=S.branches[i].name;
+      bsel.appendChild(opt);
+    }
+  }
+  document.getElementById('mod-emp').setAttribute('data-mgr',isMgr?'1':'0');
+  openMod('mod-emp');
+}
+function saveEmp(){
+  var name=document.getElementById('emp-name').value.trim();
+  var sal=parseFloat(document.getElementById('emp-sal').value)||0;
+  if(!name){showToast('يرجى كتابة اسم الموظف','e');return;}
+  var isMgr=document.getElementById('mod-emp').getAttribute('data-mgr')==='1';
+  var eid=document.getElementById('emp-edit-id').value;
+  if(eid){
+    var emp=S.employees.find(function(e){return e.id===parseInt(eid);});
+    if(emp){emp.name=name;emp.salary=sal;}
+  } else {
+    var branchId=isMgr?null:parseInt(document.getElementById('emp-branch').value);
+    S.employees.push({id:S.nextEId++,name:name,salary:sal,isManager:isMgr,branchId:branchId});
+  }
+  save(); closeMod('mod-emp'); renderEmployees(); showToast('تم الحفظ ✓');
+}
+function delEmp(id){
+  S.employees=S.employees.filter(function(e){return e.id!==id;});
+  save(); renderEmployees(); showToast('تم الحذف');
+}
+function editEmp(id){
+  var e=S.employees.find(function(x){return x.id===id;});if(!e)return;
+  openAddEmpMod(e.isManager);
+  document.getElementById('emp-edit-id').value=id;
+  document.getElementById('emp-name').value=e.name;
+  document.getElementById('emp-sal').value=e.salary;
+  if(!e.isManager&&e.branchId){
+    var bsel=document.getElementById('emp-branch');
+    for(var i=0;i<bsel.options.length;i++) if(parseInt(bsel.options[i].value)===e.branchId) bsel.selectedIndex=i;
+  }
+}
+function getInitials(name){var parts=name.split(' ');return parts.length>1?parts[0][0]+parts[1][0]:name[0]||'?';}
+function renderEmployees(){
+  var total=getTotalMonthlySalary();
+  var cnt=S.employees.length;
+  document.getElementById('emp-total-sal').textContent=fmt(total);
+  document.getElementById('emp-count').textContent=cnt;
+  // Managers
+  var mgrs=S.employees.filter(function(e){return e.isManager;});
+  var mgrEl=document.getElementById('mgr-list');
+  if(mgrs.length===0){mgrEl.innerHTML='<div class="empty" style="padding:24px"><div style="font-size:30px">👔</div><div style="margin-top:6px;font-size:13px">لا يوجد مدراء</div></div>';}
+  else{
+    mgrEl.innerHTML='';
+    var sharePerBranch=S.branches.length>0?(1/S.branches.length*100).toFixed(0)+'%':'—';
+    for(var i=0;i<mgrs.length;i++){
+      var e=mgrs[i];
+      var color=COLORS[i%COLORS.length];
+      var row=document.createElement('div');
+      row.className='emp-row';
+      row.innerHTML='<div class="emp-avatar" style="background:'+color+'">'+getInitials(e.name)+'</div><div style="flex:1"><div style="font-size:13px;font-weight:600">'+e.name+'</div><div style="font-size:11px;color:var(--ts)">مدير عام • مقسم على '+S.branches.length+' أفرع ('+sharePerBranch+' لكل فرع)</div></div><div style="text-align:left"><div style="font-size:13px;font-weight:700;color:var(--a5)">'+fmt(e.salary)+'</div><div style="font-size:10px;color:var(--ts)">ريال/شهر</div></div><button onclick="editEmp('+e.id+')" style="background:none;border:none;color:var(--a3);font-size:16px;cursor:pointer;margin-right:4px">✏️</button><button onclick="delEmp('+e.id+')" style="background:none;border:none;color:var(--a4);font-size:16px;cursor:pointer">🗑️</button>';
+      mgrEl.appendChild(row);
+    }
+  }
+  // By branch
+  var bbEl=document.getElementById('emp-by-branch');
+  bbEl.innerHTML='';
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];
+    var branchEmps=S.employees.filter(function(e){return !e.isManager&&e.branchId===b.id;});
+    var branchSal=getBranchMonthlySalary(b.id);
+    var section=document.createElement('div');
+    section.style.cssText='border-bottom:1px solid var(--sep)';
+    var hdr=document.createElement('div');
+    hdr.style.cssText='padding:12px 16px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.03)';
+    hdr.innerHTML='<div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">'+b.emoji+'</span><span style="font-size:13px;font-weight:700">'+b.name+'</span></div><div style="text-align:left"><div style="font-size:12px;font-weight:700;color:var(--a6)">'+fmt(branchSal)+' ريال</div><div style="font-size:10px;color:var(--ts)">إجمالي شهري</div></div>';
+    section.appendChild(hdr);
+    if(branchEmps.length===0){
+      var empty=document.createElement('div');
+      empty.style.cssText='padding:12px 16px;font-size:12px;color:var(--ts)';
+      empty.textContent='لا يوجد موظفون مباشرون في هذا الفرع';
+      section.appendChild(empty);
+    } else {
+      for(var j=0;j<branchEmps.length;j++){
+        var e=branchEmps[j];
+        var ecolor=COLORS[(j+3)%COLORS.length];
+        var row=document.createElement('div');
+        row.className='emp-row';
+        row.innerHTML='<div class="emp-avatar" style="background:'+ecolor+'">'+getInitials(e.name)+'</div><div style="flex:1"><div style="font-size:13px;font-weight:600">'+e.name+'</div><div style="font-size:11px;color:var(--ts)">موظف • '+b.name+'</div></div><div style="text-align:left"><div style="font-size:13px;font-weight:700;color:var(--a6)">'+fmt(e.salary)+'</div><div style="font-size:10px;color:var(--ts)">ريال/شهر</div></div><button onclick="editEmp('+e.id+')" style="background:none;border:none;color:var(--a3);font-size:16px;cursor:pointer;margin-right:4px">✏️</button><button onclick="delEmp('+e.id+')" style="background:none;border:none;color:var(--a4);font-size:16px;cursor:pointer">🗑️</button>';
+        section.appendChild(row);
+      }
+    }
+    bbEl.appendChild(section);
+  }
+}
+
+// ── ITEMS ──
+function saveItem(){
+  var name=document.getElementById('it-name').value.trim();
+  var type=document.getElementById('it-type').value;
+  if(!name){showToast('يرجى كتابة اسم البند','e');return;}
+  var colors={revenue:'#30D158',expense:'#FF453A',goods:'#FF9F0A',salary:'#FF6B35',capital:'#0A84FF',asset:'#64D2FF',liability:'#BF5AF2'};
+  S.items.push({id:S.nextItId++,name:name,type:type,color:colors[type]||'#888'});
+  save(); closeMod('mod-item'); renderAll(); fillCmpSelects(); showToast('تم إضافة البند ✓');
+  document.getElementById('it-name').value='';
+}
+function delItem(id){
+  if(!confirm('حذف هذا البند؟'))return;
+  S.items=S.items.filter(function(i){return i.id!==id;});
+  save(); renderAll(); fillCmpSelects(); showToast('تم الحذف');
+}
+function renderItems(){
+  var tl={revenue:'إيراد',expense:'مصروف',goods:'بضاعة',salary:'رواتب',capital:'رأس مال',asset:'أصول',liability:'التزامات'};
+  var tc={revenue:'var(--a2)',expense:'var(--a4)',goods:'var(--a1)',salary:'var(--a6)',capital:'var(--a3)',asset:'var(--a7)',liability:'var(--a5)'};
+  var wrap=document.getElementById('items-wrap');
+  if(S.items.length===0){wrap.innerHTML='<div class="empty"><div style="font-size:40px">📋</div><div style="margin-top:8px">لا توجد بنود</div></div>';return;}
+  wrap.innerHTML='';
+  for(var i=0;i<S.items.length;i++){
+    var it=S.items[i];
+    var row=document.createElement('div');
+    row.className='ir';
+    row.innerHTML='<div class="idot" style="background:'+it.color+'"></div><div style="flex:1"><div style="font-size:14px;font-weight:500">'+it.name+'</div><div style="font-size:11px;color:var(--ts);margin-top:1px">الإجمالي: '+fmt(getItemTotal(it.id))+' ريال</div></div><div style="font-size:11px;padding:3px 7px;border-radius:7px;background:'+it.color+'22;color:'+tc[it.type]+'">'+tl[it.type]+'</div><button onclick="delItem('+it.id+')" style="background:none;border:none;color:var(--a4);font-size:16px;cursor:pointer;padding:0 0 0 8px">🗑️</button>';
+    wrap.appendChild(row);
+  }
+}
+
+// ── DIRECTOR ──
+function saveGT(){
+  var v=parseFloat(document.getElementById('gt-inp').value)||0;
+  S.dailyTarget=v; save(); closeMod('mod-gt'); renderDash(); showToast('تم التحديث ✓');
+}
+function renderDir(){
+  var st=getStats();
+  document.getElementById('dir-nm').textContent=S.orgName;
+  document.getElementById('dir-dt').textContent=new Date().toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('dir-rev').textContent=fmt(st.rev);
+  document.getElementById('dir-exp').textContent=fmt(st.totalCosts);
+  document.getElementById('dir-net').textContent=fmt(st.net);
+  document.getElementById('dir-net').className='sv '+(st.net>=0?'g':'r');
+  var mrg=st.rev>0?((st.net/st.rev)*100).toFixed(1):0;
+  document.getElementById('dir-mrg').textContent=mrg+'%';
+  // Targets
+  var tgtEl=document.getElementById('dir-targets');
+  tgtEl.innerHTML='';
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];
+    var bs=getBStats(b.id);
+    var tp=b.dailyTarget>0?Math.min(100,Math.round(bs.rev/b.dailyTarget*100)):0;
+    var brSal=getBranchMonthlySalary(b.id);
+    var row=document.createElement('div');
+    row.style.cssText='padding:13px 16px;border-bottom:1px solid var(--sep)';
+    row.innerHTML='<div class="fbb" style="margin-bottom:7px"><div style="display:flex;align-items:center;gap:8px"><span style="font-size:17px">'+b.emoji+'</span><div><div style="font-size:13px;font-weight:700">'+b.name+'</div><div style="font-size:10px;color:var(--ts)">'+b.location+'</div></div></div><div style="text-align:left"><div style="font-size:12px;font-weight:700;color:'+b.color+'">'+fmt(bs.rev)+'</div><div style="font-size:10px;color:var(--ts)">من '+fmt(b.dailyTarget)+'/يوم</div></div></div><div class="pw"><div class="pf" style="width:'+tp+'%;background:'+b.color+'"></div></div><div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-size:10px;color:var(--ts)">'+tp+'% من الهدف اليومي</span><span style="font-size:10px;color:var(--a6)">رواتب: '+fmt(brSal)+' ريال/شهر</span></div>';
+    tgtEl.appendChild(row);
+  }
+  // Goods distribution
+  var gTotal=0;
+  for(var i=0;i<S.movements.length;i++){
+    var item=getItem(S.movements[i].itemId);
+    if(item&&item.type==='goods') gTotal+=S.movements[i].amount;
+  }
+  var gShare=S.branches.length>0?gTotal/S.branches.length:0;
+  var gEl=document.getElementById('dir-goods');
+  gEl.innerHTML='';
+  if(gTotal===0){gEl.innerHTML='<div class="empty" style="padding:24px"><div style="font-size:30px">📦</div><div style="margin-top:6px;font-size:13px">لا يوجد مشتريات بضاعة</div></div>';}
+  else {
+    var hdr=document.createElement('div');
+    hdr.style.cssText='padding:12px 16px;background:rgba(255,159,10,.08);border-bottom:1px solid var(--sep)';
+    hdr.innerHTML='<div class="fbb"><span style="font-size:12px;color:var(--ts)">إجمالي شراء البضاعة</span><span style="font-size:14px;font-weight:700;color:var(--a1)">'+fmt(gTotal)+' ريال</span></div>';
+    gEl.appendChild(hdr);
+    for(var i=0;i<S.branches.length;i++){
+      var b=S.branches[i];
+      var row=document.createElement('div');
+      row.className='goods-row';
+      row.innerHTML='<span style="font-size:16px">'+b.emoji+'</span><div style="flex:1"><div style="font-size:13px;font-weight:600">'+b.name+'</div><div style="font-size:11px;color:var(--ts)">حصة متساوية (÷'+S.branches.length+')</div></div><div style="font-size:14px;font-weight:700;color:var(--a1)">'+fmt(gShare)+' ريال</div>';
+      gEl.appendChild(row);
+    }
+  }
+}
+function shareDir(){
+  var st=getStats();
+  var txt='📊 تقرير '+S.orgName+'\n'+'─'.repeat(20)+'\n✅ الإيرادات: '+fmt(st.rev)+' ريال\n🔴 المصروفات: '+fmt(st.exp)+' ريال\n📦 البضاعة: '+fmt(st.goods)+' ريال\n💼 الرواتب: '+fmt(getTotalMonthlySalary())+' ريال\n💰 صافي الربح: '+fmt(st.net)+' ريال\n'+'─'.repeat(20)+'\n';
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];var bs=getBStats(b.id);var tp=b.dailyTarget>0?Math.round(bs.rev/b.dailyTarget*100):0;
+    txt+=b.emoji+' '+b.name+': '+fmt(bs.rev)+' ريال ('+tp+'%)\n';
+  }
+  txt+='📅 '+new Date().toLocaleDateString('ar-SA');
+  if(navigator.share) navigator.share({title:'تقرير '+S.orgName,text:txt});
+  else if(navigator.clipboard) navigator.clipboard.writeText(txt).then(function(){showToast('تم النسخ ✓');});
+}
+
+// ── COMPARE ──
+function getCmpOpts(){
+  var st=getStats();
+  var opts=[
+    {val:'_rev',label:'إجمالي الإيرادات',v:st.rev,color:'rgba(48,209,88,.8)'},
+    {val:'_exp',label:'إجمالي المصروفات',v:st.exp,color:'rgba(255,69,58,.8)'},
+    {val:'_goods',label:'إجمالي البضاعة',v:st.goods,color:'rgba(255,159,10,.8)'},
+    {val:'_sal',label:'إجمالي الرواتب',v:getTotalMonthlySalary(),color:'rgba(255,107,53,.8)'},
+    {val:'_net',label:'صافي الربح',v:st.net,color:'rgba(255,159,10,.8)'},
+    {val:'_cap',label:'رأس المال',v:st.cap,color:'rgba(10,132,255,.8)'}
+  ];
+  for(var i=0;i<S.items.length;i++){
+    opts.push({val:'item_'+S.items[i].id,label:S.items[i].name,v:getItemTotal(S.items[i].id),color:S.items[i].color+'bb'});
+  }
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];var bs=getBStats(b.id);
+    opts.push({val:'brev_'+b.id,label:'إيرادات: '+b.name,v:bs.rev,color:b.color+'bb'});
+    opts.push({val:'bexp_'+b.id,label:'مصروفات: '+b.name,v:bs.exp,color:b.color+'77'});
+    opts.push({val:'bgoods_'+b.id,label:'بضاعة: '+b.name,v:bs.goods,color:b.color+'55'});
+    opts.push({val:'bsal_'+b.id,label:'رواتب: '+b.name,v:getBranchMonthlySalary(b.id),color:b.color+'44'});
+  }
+  return opts;
+}
+function fillCmpSelects(){
+  var opts=getCmpOpts();
+  var baseHtml='<option value="">اختر...</option>';
+  for(var i=0;i<opts.length;i++) baseHtml+='<option value="'+opts[i].val+'">'+opts[i].label+'</option>';
+  var ids=['cmpA','cmpB','cmpC'];
+  for(var i=0;i<ids.length;i++){
+    var el=document.getElementById(ids[i]);
+    if(el){var cur=el.value;el.innerHTML=baseHtml;el.value=cur;}
+  }
+}
+function showCmpC(){document.getElementById('cmpC-row').style.display='flex';}
+function resetCmp(){
+  ['cmpA','cmpB','cmpC'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('cmpC-row').style.display='none';
+  document.getElementById('cmp-result').innerHTML='<div style="font-size:12px;color:var(--ts)">اختر عناصر المقارنة</div>';
+}
+function renderCmp(){
+  var opts=getCmpOpts();
+  var keys=['cmpA','cmpB','cmpC'].map(function(id){return document.getElementById(id)?document.getElementById(id).value:'';}).filter(function(v){return v;});
+  if(keys.length===0){document.getElementById('cmp-result').innerHTML='<div style="font-size:12px;color:var(--ts)">اختر عناصر المقارنة</div>';return;}
+  var items=[];
+  for(var i=0;i<keys.length;i++){for(var j=0;j<opts.length;j++) if(opts[j].val===keys[i]){items.push(opts[j]);break;}}
+  var maxVal=1;
+  for(var i=0;i<items.length;i++) if(Math.abs(items[i].v)>maxVal) maxVal=Math.abs(items[i].v);
+  var html='';
+  for(var i=0;i<items.length;i++){
+    var it=items[i];var pct=Math.round(Math.abs(it.v)/maxVal*100);
+    html+='<div class="cmp-bar-grp"><div class="cmp-bar-lbl">'+it.label+'</div><div class="cmp-bar-track"><div class="cmp-bar-fill" style="width:'+pct+'%;background:'+it.color+'"><span style="font-size:11px;font-weight:700;color:#000;white-space:nowrap">'+fmt(it.v)+'</span></div></div></div>';
+  }
+  document.getElementById('cmp-result').innerHTML=html;
+}
+
+// ── ZAKAT ──
+function renderZakat(){
+  var yr=new Date().getFullYear();
+  var dl=[
+    {t:'إقرار الزكاة السنوي',d:'آخر موعد للمنشآت',date:'30 رمضان / يونيو '+yr,cls:'dl-u',icon:'🕌'},
+    {t:'ضريبة القيمة المضافة — الربع الأول',d:'يناير — مارس '+yr,date:'30 أبريل '+yr,cls:'dl-s',icon:'💰'},
+    {t:'ضريبة القيمة المضافة — الربع الثاني',d:'أبريل — يونيو '+yr,date:'31 يوليو '+yr,cls:'dl-o',icon:'💰'},
+    {t:'ضريبة القيمة المضافة — الربع الثالث',d:'يوليو — سبتمبر '+yr,date:'31 أكتوبر '+yr,cls:'dl-o',icon:'💰'},
+    {t:'ضريبة القيمة المضافة — الربع الرابع',d:'أكتوبر — ديسمبر '+yr,date:'31 يناير '+(yr+1),cls:'dl-o',icon:'💰'},
+    {t:'ضريبة الاستقطاع',d:'للمدفوعات للأطراف الأجنبية',date:'العاشر من كل شهر',cls:'dl-s',icon:'📋'},
+    {t:'ضريبة الدخل (للأجانب)',d:'الشركات الأجنبية',date:'30 يونيو '+yr,cls:'dl-u',icon:'🏦'}
+  ];
+  var dlEl=document.getElementById('zk-dl');
+  dlEl.innerHTML='';
+  for(var i=0;i<dl.length;i++){
+    var d=dl[i];
+    var clrMap={dl_u:'var(--a4)',dl_s:'var(--a1)',dl_o:'var(--a2)'};
+    var clr=d.cls==='dl-u'?'var(--a4)':d.cls==='dl-s'?'var(--a1)':'var(--a2)';
+    var bgCls=d.cls==='dl-u'?'rgba(255,69,58,.12)':d.cls==='dl-s'?'rgba(255,159,10,.12)':'rgba(48,209,88,.1)';
+    var brd=d.cls==='dl-u'?'rgba(255,69,58,.2)':d.cls==='dl-s'?'rgba(255,159,10,.2)':'rgba(48,209,88,.15)';
+    var card=document.createElement('div');
+    card.style.cssText='background:'+bgCls+';border:1px solid '+brd+';border-radius:13px;padding:13px;margin:10px 14px';
+    card.innerHTML='<div class="fbb"><div><div style="font-size:13px;font-weight:700">'+d.icon+' '+d.t+'</div><div style="font-size:11px;color:var(--ts);margin-top:2px">'+d.d+'</div></div><div style="font-size:11px;font-weight:700;text-align:left;color:'+clr+'">'+d.date+'</div></div>';
+    dlEl.appendChild(card);
+  }
+}
+function calcZakat(){
+  var st=getStats();var nisab=21250;
+  var base=Math.max(0,st.cap+st.rev-st.exp-st.goods);
+  var z=base>=nisab?base*0.025:0;
+  var el=document.getElementById('zk-res');
+  el.innerHTML='<div class="s2" style="padding:0;margin-bottom:10px"><div class="sc" style="margin:0"><div class="sl">وعاء الزكاة</div><div class="sv b">'+fmt(base)+'</div><div class="ss">ريال</div></div><div class="sc" style="margin:0"><div class="sl">الزكاة المستحقة 2.5%</div><div class="sv p">'+fmt(z)+'</div><div class="ss">ريال</div></div></div><div style="font-size:12px;color:var(--ts);padding:0 2px">'+(base<nisab?'⚠️ الوعاء أقل من النصاب ('+fmt(nisab)+' ريال)':'✅ يجب سداد الزكاة: '+fmt(z)+' ريال')+'<br><br>* حساب تقريبي — يُنصح بمراجعة محاسب معتمد أو منصة ZATCA</div>';
+}
+function calcVAT(){
+  var st=getStats();
+  // ضريبة المبيعات = على الإيرادات الخاضعة للضريبة
+  var vatOnSales=st.rev*0.15;
+  // ضريبة المدخلات = على المشتريات والمصروفات (بضاعة + مصروفات عامة)
+  var taxableInputs=st.goods+st.exp;
+  var vatOnInputs=taxableInputs*0.15;
+  // صافي الضريبة المستحقة = ضريبة المبيعات - ضريبة المدخلات
+  var netVat=vatOnSales-vatOnInputs;
+  // الإيجار عادة معفى من ضريبة القيمة المضافة في السعودية
+  var rentNote='* الإيجار التجاري معفى من ضريبة القيمة المضافة وفق الأنظمة السعودية';
+  document.getElementById('vat-res').innerHTML=
+    '<div class="sr hd"><span>تفصيل الضريبة</span></div>'
+    +'<div class="sr"><span style="padding-right:10px">الإيرادات الخاضعة للضريبة</span><span style="color:var(--ts)">'+fmt(st.rev)+'</span></div>'
+    +'<div class="sr"><span style="padding-right:10px">ضريبة المبيعات (15%)</span><span style="font-weight:700;color:var(--a4)">'+fmt(vatOnSales)+' ريال</span></div>'
+    +'<div class="sr hd"><span>ضريبة المدخلات</span></div>'
+    +'<div class="sr"><span style="padding-right:10px">البضاعة والمصروفات</span><span style="color:var(--ts)">'+fmt(taxableInputs)+'</span></div>'
+    +'<div class="sr"><span style="padding-right:10px">ضريبة المدخلات (15%)</span><span style="font-weight:700;color:var(--a2)">'+fmt(vatOnInputs)+' ريال</span></div>'
+    +'<div class="sr tot" style="font-size:15px;padding:14px 16px"><span>صافي الضريبة المستحقة</span><span style="font-weight:800;color:'+(netVat>=0?'var(--a4)':'var(--a2)')+'">'+fmt(netVat)+' ريال</span></div>'
+    +'<div style="font-size:11px;color:var(--ts);padding:10px 0 4px">'+(netVat>=0?'📌 يجب سداد '+fmt(netVat)+' ريال لهيئة الزكاة':'✅ يحق لك استرداد '+fmt(Math.abs(netVat))+' ريال من الهيئة')+'</div>'
+    +'<div style="font-size:10px;color:var(--tt);margin-top:4px">'+rentNote+'</div>'
+    +'<div style="font-size:10px;color:var(--tt);margin-top:2px">* هذا حساب تقريبي — يُنصح بمراجعة محاسب معتمد أو منصة ZATCA</div>';
+}
+function genDecl(){
+  var st=getStats();var yr=new Date().getFullYear();
+  var base=Math.max(0,st.cap+st.rev-st.exp-st.goods);
+  var z=base>=21250?base*0.025:0;var vatOnSalesD=st.rev*0.15;var vatOnInputsD=(st.goods+st.exp)*0.15;var netVAT=vatOnSalesD-vatOnInputsD;
+  var rentTotal=0;for(var i=0;i<S.branches.length;i++) rentTotal+=(S.branches[i].rent?S.branches[i].rent.annual:0);
+  var salTotal=getTotalMonthlySalary();
+  document.getElementById('zk-decl').innerHTML='<div style="text-align:center;padding:8px 0 12px;border-bottom:1px solid var(--sep)"><div style="font-size:14px;font-weight:700">📄 إقرار ضريبي / زكوي</div><div style="font-size:11px;color:var(--ts);margin-top:2px">السنة المالية '+yr+' • '+S.orgName+'</div></div><div class="sr hd"><span>أولاً: الإيرادات والمصروفات</span></div><div class="sr"><span>إجمالي الإيرادات</span><span class="g" style="font-weight:700">'+fmt(st.rev)+' ريال</span></div><div class="sr"><span>إجمالي المصروفات</span><span class="r" style="font-weight:700">'+fmt(st.exp)+' ريال</span></div><div class="sr"><span>إجمالي شراء البضاعة</span><span style="color:var(--a1);font-weight:700">'+fmt(st.goods)+' ريال</span></div><div class="sr"><span>إجمالي الرواتب الشهرية</span><span style="color:var(--a6);font-weight:700">'+fmt(salTotal)+' ريال</span></div><div class="sr"><span>إجمالي الإيجارات السنوية</span><span style="font-weight:700">'+fmt(rentTotal)+' ريال</span></div><div class="sr tot"><span>صافي الربح</span><span style="font-weight:700;color:'+(st.net>=0?'var(--a2)':'var(--a4)')+'">'+fmt(st.net)+' ريال</span></div><div class="sr hd"><span>ثانياً: الزكاة</span></div><div class="sr"><span>وعاء الزكاة</span><span style="font-weight:700">'+fmt(base)+' ريال</span></div><div class="sr"><span>النسبة</span><span style="font-weight:700">2.5%</span></div><div class="sr tot"><span>الزكاة المستحقة</span><span class="p" style="font-weight:700">'+fmt(z)+' ريال</span></div><div class="sr hd"><span>ثالثاً: ضريبة القيمة المضافة</span></div><div class="sr"><span>ضريبة المبيعات</span><span style="font-weight:700">'+fmt(st.rev*0.15)+' ريال</span></div><div class="sr"><span>ضريبة المدخلات</span><span style="font-weight:700">'+fmt((st.exp+st.goods)*0.15)+' ريال</span></div><div class="sr tot"><span>صافي الضريبة</span><span style="font-weight:700;color:'+(netVAT>=0?'var(--a4)':'var(--a2)')+'">'+fmt(netVAT)+' ريال</span></div><div style="font-size:10px;color:var(--tt);padding:10px 0 2px;line-height:1.6">* هذا الإقرار توليد تلقائي للاستئناس فقط. يُنصح بمراجعة محاسب قانوني معتمد قبل التقديم لدى منصة ZATCA.</div>';
+  showToast('تم توليد الإقرار ✓');
+}
+function shareDecl(){
+  var st=getStats();var yr=new Date().getFullYear();
+  var base=Math.max(0,st.cap+st.rev-st.exp-st.goods);
+  var z=base>=21250?base*0.025:0;
+  var txt='📄 إقرار ضريبي / زكوي\n'+S.orgName+' • '+yr+'\n'+'─'.repeat(20)+'\nالإيرادات: '+fmt(st.rev)+' ريال\nالمصروفات: '+fmt(st.exp)+' ريال\nالبضاعة: '+fmt(st.goods)+' ريال\nالرواتب: '+fmt(getTotalMonthlySalary())+' ريال\nصافي الربح: '+fmt(st.net)+' ريال\nالزكاة: '+fmt(z)+' ريال\nضريبة ق.م: '+fmt(st.rev*0.15-(st.exp+st.goods)*0.15)+' ريال\n📅 '+new Date().toLocaleDateString('ar-SA');
+  if(navigator.share) navigator.share({title:'الإقرار الضريبي',text:txt});
+  else if(navigator.clipboard) navigator.clipboard.writeText(txt).then(function(){showToast('تم النسخ ✓');});
+}
+
+// ── FINANCIAL STATEMENTS ──
+function setStmt(id,el){
+  S.currentStmt=id;
+  var tabs=document.querySelectorAll('.stab');
+  for(var i=0;i<tabs.length;i++) tabs[i].classList.remove('active');
+  if(el) el.classList.add('active');
+  renderStmt(id);
+}
+function renderStmt(type){
+  var st=getStats();
+  var revItems=S.items.filter(function(i){return i.type==='revenue';});
+  var expItems=S.items.filter(function(i){return i.type==='expense'||i.type==='goods'||i.type==='salary';});
+  var tRev=revItems.reduce(function(s,i){return s+getItemTotal(i.id);},0);
+  var tExp=expItems.reduce(function(s,i){return s+getItemTotal(i.id);},0);
+  var rentTotal=S.branches.reduce(function(s,b){return s+(b.rent?b.rent.annual:0);},0);
+  var salTotal=getTotalMonthlySalary();
+  var goodsTotal=0;for(var i=0;i<S.movements.length;i++){var item=getItem(S.movements[i].itemId);if(item&&item.type==='goods') goodsTotal+=S.movements[i].amount;}
+  var net=tRev-tExp;
+  var h='';
+  if(type==='income'){
+    // حساب صحيح من الحركات
+    var rentPaid=0,goodsTotal2=0,salPaid=0,expGen=0,revTotal=0;
+    for(var i=0;i<S.movements.length;i++){
+      var mv=S.movements[i]; var itm=getItem(mv.itemId);
+      if(!itm) continue;
+      if(itm.type==='revenue') revTotal+=mv.amount;
+      else if(itm.type==='goods') goodsTotal2+=mv.amount;
+      else if(itm.type==='salary') salPaid+=mv.amount;
+      else if(itm.type==='expense'){
+        if(itm.name==='إيجار'||itm.name.indexOf('ايجار')!==-1||itm.name.indexOf('إيجار')!==-1) rentPaid+=mv.amount;
+        else expGen+=mv.amount;
+      }
+    }
+    var totalExp2=expGen+rentPaid+goodsTotal2+salPaid;
+    var net2=revTotal-totalExp2;
+    h='<div class="sr hd"><span>قائمة الدخل</span><span>'+new Date().getFullYear()+'</span></div>';
+    h+='<div class="sr hd"><span>الإيرادات</span></div>';
+    // إيرادات لكل فرع
+    for(var i=0;i<S.branches.length;i++){
+      var b2=S.branches[i];
+      var bRev=0;
+      for(var j=0;j<S.movements.length;j++){
+        var mv2=S.movements[j]; var itm2=getItem(mv2.itemId);
+        if(mv2.branchId===b2.id&&itm2&&itm2.type==='revenue') bRev+=mv2.amount;
+      }
+      h+='<div class="sr"><span style="padding-right:12px">'+b2.emoji+' '+b2.name+'</span><span class="g">'+fmt(bRev)+'</span></div>';
+    }
+    h+='<div class="sr tot"><span>إجمالي الإيرادات</span><span class="g">'+fmt(revTotal)+'</span></div>';
+    h+='<div class="sr hd"><span>التكاليف والمصروفات</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">📦 شراء البضاعة</span><span class="r">'+fmt(goodsTotal2)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">🏠 الإيجار المدفوع</span><span class="r">'+fmt(rentPaid)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">👥 الرواتب المدفوعة</span><span class="r">'+fmt(salPaid)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">📋 مصروفات عامة</span><span class="r">'+fmt(expGen)+'</span></div>';
+    h+='<div class="sr tot"><span>إجمالي التكاليف</span><span class="r">'+fmt(totalExp2)+'</span></div>';
+    h+='<div class="sr tot" style="font-size:16px;background:rgba(255,255,255,.06);padding:14px 16px"><span style="font-weight:700">صافي الربح / الخسارة</span><span style="font-weight:800;color:'+(net2>=0?'var(--a2)':'var(--a4)')+'">'+fmt(net2)+'</span></div>';
+  } else if(type==='balance'){
+    var stB=getStats();
+    var rentPaidB=0,goodsTotalB=0,salPaidB=0,expGenB=0;
+    for(var i=0;i<S.movements.length;i++){
+      var mv=S.movements[i]; var itm=getItem(mv.itemId); if(!itm)continue;
+      if(itm.type==='goods') goodsTotalB+=mv.amount;
+      else if(itm.type==='salary') salPaidB+=mv.amount;
+      else if(itm.type==='expense'){
+        if(itm.name==='إيجار'||itm.name.indexOf('ايجار')!==-1||itm.name.indexOf('إيجار')!==-1) rentPaidB+=mv.amount;
+        else expGenB+=mv.amount;
+      }
+    }
+    var rentAnnualTotal=S.branches.reduce(function(s,b){return s+(b.rent?b.rent.annual:0);},0);
+    var rentPending=S.branches.reduce(function(s,b){var r=b.rent||{annual:0,freq:'quarterly',paid:0};var cnt=FREQ_CNT[r.freq]||4;return s+(r.annual-(r.annual/cnt*r.paid));},0);
+    var totalAssets=stB.cap+stB.rev;
+    var totalLiab=expGenB+rentPaidB+goodsTotalB+salPaidB+rentPending;
+    var equity=stB.cap+stB.net;
+    h='<div class="sr hd"><span>الميزانية العمومية</span><span>'+new Date().toLocaleDateString('ar-SA')+'</span></div>';
+    h+='<div class="sr hd"><span>الأصول</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">رأس المال المضاف</span><span class="b">'+fmt(stB.cap)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">إجمالي الإيرادات</span><span class="b">'+fmt(stB.rev)+'</span></div>';
+    h+='<div class="sr tot"><span>إجمالي الأصول</span><span class="b">'+fmt(totalAssets)+'</span></div>';
+    h+='<div class="sr hd"><span>الخصوم والالتزامات</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">📦 البضاعة المشتراة</span><span class="r">'+fmt(goodsTotalB)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">🏠 الإيجار المدفوع</span><span class="r">'+fmt(rentPaidB)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">🏠 الإيجار المتبقي</span><span class="r">'+fmt(rentPending)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">👥 الرواتب المدفوعة</span><span class="r">'+fmt(salPaidB)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">📋 مصروفات عامة</span><span class="r">'+fmt(expGenB)+'</span></div>';
+    h+='<div class="sr tot"><span>إجمالي الخصوم</span><span class="r">'+fmt(totalLiab)+'</span></div>';
+    h+='<div class="sr hd"><span>حقوق الملكية</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">رأس المال</span><span class="b">'+fmt(stB.cap)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">الأرباح / الخسائر</span><span style="color:'+(stB.net>=0?'var(--a2)':'var(--a4)')+'">'+fmt(stB.net)+'</span></div>';
+    h+='<div class="sr tot" style="background:rgba(10,132,255,.08);font-size:15px;padding:14px 16px"><span>إجمالي حقوق الملكية</span><span style="color:'+(equity>=0?'var(--a2)':'var(--a4)')+'">'+fmt(equity)+'</span></div>';
+  } else {
+    var stCF=getStats();
+    var rentPaidCF=0,goodsCF=0,salCF=0,expCF=0;
+    for(var i=0;i<S.movements.length;i++){
+      var mv=S.movements[i]; var itm=getItem(mv.itemId); if(!itm)continue;
+      if(itm.type==='goods') goodsCF+=mv.amount;
+      else if(itm.type==='salary') salCF+=mv.amount;
+      else if(itm.type==='expense'){
+        if(itm.name==='إيجار'||itm.name.indexOf('ايجار')!==-1||itm.name.indexOf('إيجار')!==-1) rentPaidCF+=mv.amount;
+        else expCF+=mv.amount;
+      }
+    }
+    var opCash=stCF.rev-expCF-rentPaidCF-goodsCF-salCF;
+    var finCash=stCF.cap;
+    var netCash=opCash+finCash;
+    h='<div class="sr hd"><span>قائمة التدفقات النقدية</span><span>'+new Date().getFullYear()+'</span></div>';
+    h+='<div class="sr hd"><span>التدفقات التشغيلية</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">الإيرادات المحصلة</span><span class="g">'+fmt(stCF.rev)+'</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">📦 مشتريات البضاعة</span><span class="r">('+fmt(goodsCF)+')</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">🏠 الإيجارات المسددة</span><span class="r">('+fmt(rentPaidCF)+')</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">👥 الرواتب المدفوعة</span><span class="r">('+fmt(salCF)+')</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">📋 مصروفات عامة</span><span class="r">('+fmt(expCF)+')</span></div>';
+    h+='<div class="sr tot"><span>صافي التدفق التشغيلي</span><span style="color:'+(opCash>=0?'var(--a2)':'var(--a4)')+'">'+fmt(opCash)+'</span></div>';
+    h+='<div class="sr hd"><span>التدفقات التمويلية</span></div>';
+    h+='<div class="sr"><span style="padding-right:12px">رأس المال المضاف</span><span class="b">'+fmt(finCash)+'</span></div>';
+    h+='<div class="sr tot"><span>صافي التدفق التمويلي</span><span class="b">'+fmt(finCash)+'</span></div>';
+    h+='<div class="sr tot" style="background:rgba(255,159,10,.08);font-size:15px;padding:14px 16px"><span style="font-weight:700">الزيادة/النقص في النقد</span><span style="font-weight:800;color:'+(netCash>=0?'var(--a2)':'var(--a4)')+'">'+fmt(netCash)+'</span></div>';
+  }
+  document.getElementById('stmt-wrap').innerHTML=h;
+}
+function shareStmt(){showToast('تم تصدير القائمة المالية ✓');}
+
+// ── REPORT ──
+function renderReport(){
+  var st=getStats();
+  var rentTotal=S.branches.reduce(function(s,b){return s+(b.rent?b.rent.annual:0);},0);
+  var rentPaid=S.branches.reduce(function(s,b){var r=b.rent||{annual:0,freq:'quarterly',paid:0};var cnt=FREQ_CNT[r.freq]||4;return s+(r.annual/cnt*r.paid);},0);
+  var salTotal=getTotalMonthlySalary();
+  var goodsTotal=0;for(var i=0;i<S.movements.length;i++){var item=getItem(S.movements[i].itemId);if(item&&item.type==='goods') goodsTotal+=S.movements[i].amount;}
+  // Summary
+  var rows=[['الإيرادات الإجمالية',fmt(st.rev)+' ريال','g'],['إجمالي المصروفات',fmt(st.exp)+' ريال','r'],['إجمالي البضاعة',fmt(goodsTotal)+' ريال','o'],['إجمالي الرواتب الشهرية',fmt(salTotal)+' ريال','p'],['صافي الربح',fmt(st.net)+' ريال',st.net>=0?'g':'r'],['رأس المال',fmt(st.cap)+' ريال','b'],['الهدف اليومي',fmt(S.dailyTarget)+' ريال',''],['الإيجارات السنوية',fmt(rentTotal)+' ريال',''],['الإيجار المسدد',fmt(rentPaid)+' ريال','g'],['الإيجار المتبقي',fmt(rentTotal-rentPaid)+' ريال','o']];
+  var tcmap={g:'var(--a2)',r:'var(--a4)',b:'var(--a3)',o:'var(--a1)',p:'var(--a5)'};
+  var sumHtml='';
+  for(var i=0;i<rows.length;i++) sumHtml+='<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--sep);font-size:13px"><span style="color:var(--ts)">'+rows[i][0]+'</span><span style="font-weight:700;color:'+(rows[i][2]?tcmap[rows[i][2]]:'var(--tp)')+'">'+rows[i][1]+'</span></div>';
+  document.getElementById('rpt-sum').innerHTML=sumHtml;
+  // Goods per branch
+  var gShare=S.branches.length>0?goodsTotal/S.branches.length:0;
+  var gHtml='';
+  if(goodsTotal===0){gHtml='<div class="empty" style="padding:24px"><div style="font-size:30px">📦</div><div style="margin-top:6px;font-size:13px">لا يوجد بيانات بضاعة</div></div>';}
+  else{
+    gHtml='<div class="sr hd"><span>إجمالي البضاعة: '+fmt(goodsTotal)+' ريال</span><span>÷'+S.branches.length+' أفرع</span></div>';
+    for(var i=0;i<S.branches.length;i++){
+      var b=S.branches[i];
+      gHtml+='<div class="goods-row"><span style="font-size:16px">'+b.emoji+'</span><span style="flex:1;font-size:13px;font-weight:600">'+b.name+'</span><span style="font-size:14px;font-weight:700;color:var(--a1)">'+fmt(gShare)+' ريال</span></div>';
+    }
+  }
+  document.getElementById('rpt-goods').innerHTML=gHtml;
+  // Salaries
+  var salHtml='<div class="sr hd"><span>إجمالي الرواتب الشهرية</span><span style="color:var(--a6)">'+fmt(salTotal)+' ريال</span></div>';
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];var brSal=getBranchMonthlySalary(b.id);
+    var brEmps=S.employees.filter(function(e){return !e.isManager&&e.branchId===b.id;});
+    salHtml+='<div style="padding:11px 16px;border-bottom:1px solid var(--sep)"><div class="fbb"><div><div style="font-size:13px;font-weight:600">'+b.emoji+' '+b.name+'</div><div style="font-size:11px;color:var(--ts)">'+brEmps.length+' موظف مباشر</div></div><span style="font-size:13px;font-weight:700;color:var(--a6)">'+fmt(brSal)+' ريال</span></div></div>';
+  }
+  document.getElementById('rpt-sal').innerHTML=salHtml;
+  // Branches
+  var brHtml='';
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];var bs=getBStats(b.id);var tp=b.dailyTarget>0?Math.round(bs.rev/b.dailyTarget*100):0;
+    brHtml+='<div style="padding:12px 16px;border-bottom:1px solid var(--sep)"><div class="fbb" style="margin-bottom:7px"><div style="display:flex;align-items:center;gap:7px"><span>'+b.emoji+'</span><div><div style="font-size:13px;font-weight:700">'+b.name+'</div><div style="font-size:10px;color:var(--ts)">'+b.location+'</div></div></div><div style="text-align:left"><div style="font-size:13px;font-weight:700;color:'+b.color+'">'+fmt(bs.rev)+' ريال</div><div style="font-size:10px;color:var(--ts)">هدف يومي: '+fmt(b.dailyTarget)+'</div></div></div><div class="pw"><div class="pf" style="width:'+Math.min(100,tp)+'%;background:'+b.color+'"></div></div><div style="font-size:10px;color:var(--ts);margin-top:3px">'+tp+'% من الهدف اليومي</div></div>';
+  }
+  document.getElementById('rpt-br').innerHTML=brHtml;
+  // Rent
+  var rentHtml='';
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];var r=b.rent||{annual:0,freq:'quarterly',paid:0};var cnt=FREQ_CNT[r.freq]||4;var pp=r.annual/cnt;var paidAmt=pp*r.paid;
+    rentHtml+='<div style="padding:12px 16px;border-bottom:1px solid var(--sep)"><div class="fbb"><div><div style="font-size:13px;font-weight:600">'+b.emoji+' '+b.name+'</div><div style="font-size:11px;color:var(--ts)">'+FREQ_LBL[r.freq]+' • السنوي: '+fmt(r.annual)+' ريال</div></div><div style="text-align:left"><div style="font-size:12px;font-weight:700;color:var(--a2)">مسدد: '+fmt(paidAmt)+'</div><div style="font-size:12px;font-weight:700;color:var(--a1)">متبقي: '+fmt(r.annual-paidAmt)+'</div></div></div></div>';
+  }
+  document.getElementById('rpt-rent').innerHTML=rentHtml;
+  // Suggestions
+  var sugs=[];
+  if(st.rev===0) sugs.push('لم يتم تسجيل إيرادات بعد. ابدأ بإدخال الحركات المالية لتفعيل التحليل الكامل.');
+  else{
+    var mrg=((st.net/st.rev)*100).toFixed(1);
+    if(st.net<0) sugs.push('يُلاحظ وجود خسارة بمقدار '+fmt(Math.abs(st.net))+' ريال. راجع بنود المصروفات والبضاعة.');
+    else sugs.push('هامش الربح الحالي '+mrg+'%. '+(parseFloat(mrg)>20?'أداء ممتاز!':'هناك فرصة لتحسين الهامش.'));
+    if(goodsTotal>st.rev*0.5) sugs.push('تكاليف البضاعة مرتفعة ('+Math.round(goodsTotal/st.rev*100)+'% من الإيرادات). راجع سلسلة التوريد.');
+    if(salTotal>0) sugs.push('الرواتب الشهرية '+fmt(salTotal)+' ريال. تأكد من أن الإيرادات اليومية تغطي الالتزامات الشهرية.');
+  }
+  for(var i=0;i<S.branches.length;i++){
+    var b=S.branches[i];var bs=getBStats(b.id);var tp=b.dailyTarget>0?Math.round(bs.rev/b.dailyTarget*100):0;
+    if(tp<50&&b.dailyTarget>0) sugs.push('فرع "'+b.name+'" حقق '+tp+'% فقط من هدفه اليومي. يُنصح بمراجعة أسباب التأخر.');
+  }
+  sugs.push('استخدم أداة المقارنة المخصصة لتحليل العلاقة بين الإيرادات والالتزامات لكل فرع.');
+  var sugHtml='';
+  for(var i=0;i<sugs.length;i++) sugHtml+='<div class="sug"><div style="font-size:11px;color:var(--a5);font-weight:700;margin-bottom:3px">اقتراح '+(i+1)+'</div><div style="font-size:13px;line-height:1.6">'+sugs[i]+'</div></div>';
+  document.getElementById('rpt-sug').innerHTML=sugHtml;
+}
+
+function confirmReset(){if(confirm('تأكيد مسح جميع البيانات؟')){localStorage.removeItem('acc-v5');location.reload();}}
+
+// ══ النسخ الاحتياطي ══
+function exportData(){
+  try{
+    // نسخة كاملة بدون الصور الكبيرة (للحجم)
+    var exportState=JSON.parse(JSON.stringify(S));
+    // نحتفظ بالمرفقات
+    var dataStr=JSON.stringify(exportState,null,2);
+    var blob=new Blob([dataStr],{type:'application/json'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    var now=new Date();
+    var dateStr=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+    a.href=url;
+    a.download='اوراق-الشمس-نسخة-احتياطية-'+dateStr+'.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('تم تحميل النسخة الاحتياطية ✓');
+  }catch(e){showToast('خطأ في التصدير','e');}
+}
+
+function exportCSV(){
+  try{
+    var rows=['التاريخ,البيان,البند,النوع,الفرع,المبلغ'];
+    var sorted=S.movements.slice().sort(function(a,b){
+      var da=a.date?a.date.replace(/-/g,''):'0';
+      var db=b.date?b.date.replace(/-/g,''):'0';
+      return db>da?1:db<da?-1:0;
+    });
+    for(var i=0;i<sorted.length;i++){
+      var m=sorted[i];
+      var sign=m.itemType==='revenue'?'+':'-';
+      rows.push([
+        m.date,
+        '"'+(m.desc||'').replace(/"/g,"''")+'"',
+        '"'+(m.itemName||'')+'"',
+        m.itemType==='revenue'?'إيراد':m.itemType==='goods'?'بضاعة':m.itemType==='salary'?'رواتب':m.itemType==='capital'?'رأس مال':'مصروف',
+        '"'+(m.branchName||'')+'"',
+        sign+m.amount
+      ].join(','));
+    }
+    // BOM for Arabic Excel
+    var bom='﻿';
+    var blob=new Blob([bom+rows.join('
+')],{type:'text/csv;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    var now=new Date();
+    a.href=url;
+    a.download='حركات-اوراق-الشمس-'+now.getFullYear()+'-'+(now.getMonth()+1)+'.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('تم تصدير الحركات ✓');
+  }catch(e){showToast('خطأ في التصدير','e');}
+}
+
+function importData(inp){
+  var file=inp.files[0];
+  if(!file)return;
+  if(!confirm('سيتم استبدال جميع البيانات الحالية بالنسخة الاحتياطية. هل أنت متأكد؟'))return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    try{
+      var imported=JSON.parse(ev.target.result);
+      // التحقق من صحة الملف
+      if(!imported.movements||!imported.branches){
+        showToast('ملف غير صالح','e');return;
+      }
+      S=Object.assign({},S,imported);
+      localStorage.setItem('acc-v5',JSON.stringify(S));
+      showToast('تم استيراد البيانات ✓ — '+imported.movements.length+' قيد');
+      setTimeout(function(){renderAll();showPage('dashboard');updateDataInfo();},500);
+    }catch(e){showToast('خطأ في قراءة الملف','e');}
+  };
+  r.readAsText(file);
+  inp.value='';
+}
+
+function updateDataInfo(){
+  var el=document.getElementById('data-info');
+  if(!el)return;
+  var totalAmt=S.movements.reduce(function(s,m){return m.itemType==='revenue'?s+m.amount:s;},0);
+  var lastDate='';
+  if(S.movements.length>0){
+    var sorted=S.movements.slice().sort(function(a,b){var da=a.date||'';var db=b.date||'';return db>da?1:-1;});
+    lastDate=sorted[0].date||'';
+  }
+  var dataSize=JSON.stringify(S).length;
+  var sizeKB=Math.round(dataSize/1024);
+  el.innerHTML=
+    '<div class="sr" style="padding:8px 0"><span style="color:var(--ts)">عدد القيود</span><span style="font-weight:700">'+S.movements.length+'</span></div>'
+    +'<div class="sr" style="padding:8px 0"><span style="color:var(--ts)">عدد الموظفين</span><span style="font-weight:700">'+S.employees.length+'</span></div>'
+    +'<div class="sr" style="padding:8px 0"><span style="color:var(--ts)">إجمالي الإيرادات</span><span style="font-weight:700;color:var(--a2)">'+fmt(totalAmt)+' ريال</span></div>'
+    +'<div class="sr" style="padding:8px 0"><span style="color:var(--ts)">آخر قيد</span><span style="font-weight:700">'+lastDate+'</span></div>'
+    +'<div class="sr" style="padding:8px 0;border:none"><span style="color:var(--ts)">حجم البيانات</span><span style="font-weight:700">'+sizeKB+' KB</span></div>';
+}
+
+// ── RENDER ALL ──
+function renderAll(){
+  renderDash(); renderDashChart();
+  renderMovements(); renderBranches(); renderEmployees();
+  renderItems(); renderDir(); renderZakat();
+  if(S.currentStmt) renderStmt(S.currentStmt);
+  renderReport();
+}
+
+// ── INIT ──
+window.addEventListener('DOMContentLoaded',function(){
+  if(S.orgLogo){
+    var ids=['logoImg','dir-img'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);el.src=S.orgLogo;el.style.display='block';}
+    document.getElementById('logoEm').style.display='none';
+    document.getElementById('dir-em').style.display='none';
+  }
+  document.getElementById('orgNm').textContent=S.orgName;
+  document.getElementById('dir-nm').textContent=S.orgName;
+  document.getElementById('dir-dt').textContent=new Date().toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'});
+  fillCmpSelects();
+  renderStmt('income');
+  renderAll();
+
+  document.getElementById('m-item').addEventListener('change',checkGoodsSplit);
+});
+</script>
+</body>
+</html>
